@@ -163,7 +163,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   position: relative;
   background-color: #dcdfe6;
@@ -186,7 +186,7 @@ export default {
   background-color: #fff;
 }
 .tabs-item:hover::before {
-  background: #2dca7f;
+  background: $tabs-item-active-color;
 }
 .tabs-item i {
   margin-left: 5px;
@@ -214,7 +214,7 @@ export default {
 }
 .router-link-active::before {
   content: "";
-  background: #2dca7f;
+  background: $tabs-item-active-color;
   display: inline-block;
   width: 8px;
   height: 8px;

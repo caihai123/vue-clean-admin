@@ -38,7 +38,7 @@
         trigger="click"
         @command="handleCommand"
       >
-        <span class="el-dropdown-link">
+        <span>
           你好，蔡海<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -122,13 +122,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
   width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: $header-link-color;
+  background-color: $header-bg;
 }
 .header > div {
   display: flex;
@@ -144,9 +146,10 @@ export default {
   cursor: pointer;
 }
 .link:hover {
-  background: rgba(0, 0, 0, 0.025);
+  background: $header-link-hover;
 }
 .dropdown {
   font-size: 14px;
+  color: $header-link-color;
 }
 </style>

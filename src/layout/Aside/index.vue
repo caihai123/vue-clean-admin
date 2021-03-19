@@ -9,8 +9,6 @@
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         class="el-menu-vertical"
-        background-color="#304156"
-        text-color="rgb(191, 203, 217)"
         unique-opened
         :collapse="isCollapse"
         :default-active="activeMenu"
@@ -101,18 +99,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .aside {
   width: 210px;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #304156;
+  background-color: $menu-bg;
   transition: width 0.5s;
 }
 .collapse {
   width: 64px;
 }
+
+// 小屏下的样式
 @media screen and (max-width: 1200px) {
   .aside {
     position: absolute;
@@ -123,21 +123,38 @@ export default {
     width: 0px;
   }
 }
-.aside >>> .el-menu {
+
+.aside ::v-deep .el-menu {
   border-right: none;
+  background-color: $menu-bg;
 }
-.el-menu-vertical {
-  text-align: left;
-}
+// .el-menu-vertical {
+//   text-align: left;
+// }
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 210px;
 }
-.aside >>> .el-scrollbar {
+.aside ::v-deep .el-scrollbar {
   flex: 1 1 0%;
   overflow: hidden auto;
 }
-.aside >>> .scrollbar-wrapper {
+.aside ::v-deep .scrollbar-wrapper {
   overflow-x: hidden !important;
+}
+.aside ::v-deep .el-menu-item,
+.aside ::v-deep .el-submenu__title {
+  color: $menu-font-color;
+}
+
+.aside ::v-deep .el-menu-item:hover,
+.aside ::v-deep .el-menu-item:focus,
+.aside ::v-deep .el-submenu__title:hover,
+.aside ::v-deep .el-submenu__title:focus {
+  background-color: $menu-item-hover;
+}
+
+.aside ::v-deep .el-menu-item.is-active {
+  color: $emnu-item-active-coloe;
 }
 
 /* 底部箭头按钮样式 */
@@ -150,7 +167,7 @@ export default {
   cursor: pointer;
 }
 .sider-links:hover {
-  color: #409eff;
+  color: $emnu-item-active-coloe;
 }
 .sider-links i {
   display: inline-block;
@@ -168,7 +185,7 @@ export default {
   line-height: 32px;
   cursor: pointer;
   transition: padding 0.2s;
-  background: hsla(0, 0%, 100%, 0.2);
+  background: $menu-logo-bg;
 }
 .sider-logo a {
   margin-left: 16px;
@@ -183,15 +200,12 @@ export default {
   display: block;
   height: 32px;
   margin: 0 0 0 12px;
-  color: #fff;
+  color: $menu-font-color;
   font-weight: 600;
   font-size: 18px;
   line-height: 32px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-.aside >>> .el-menu-item.is-active {
-  color: #409eff;
 }
 </style>

@@ -3,7 +3,7 @@
     <Lock v-if="isLock" />
 
     <el-container v-else class="container">
-      <Aside class="aside" />
+      <Aside />
       <div
         v-show="!isCollapse"
         class="drawer-bg"
@@ -57,30 +57,34 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   position: relative;
-}
-.el-header {
-  padding: 0 !important;
-}
-.main {
-  height: calc(100vh - 100px);
-  text-align: left;
-}
-.drawer-bg {
-  display: none;
-}
-@media screen and (max-width: 1200px) {
+
+  .el-header {
+    padding: 0 !important;
+  }
+
+  .main {
+    height: calc(100vh - 100px);
+    text-align: left;
+  }
+
   .drawer-bg {
-    display: block;
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    background: #000;
-    opacity: 0.3;
-    z-index: 1999;
+    display: none;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .drawer-bg {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      background: #000;
+      opacity: 0.3;
+      z-index: 1999;
+    }
   }
 }
 </style>
