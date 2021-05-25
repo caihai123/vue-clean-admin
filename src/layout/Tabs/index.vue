@@ -9,41 +9,37 @@
         @end="drag = false"
         tag="span"
       >
-        <template v-for="(item, index) in tabsItem">
-          <el-popover
-            placement="bottom"
-            trigger="manual"
-            :key="item.path"
-            popper-class="layout--tabs--popover"
-            v-model="item.visible"
+        <transition-group tag="span" name="flip-list">
+          <router-link
+            v-for="item in tabsItem"
+            :key="item.title"
+            ref="tag"
+            class="tabs-item"
+            :to="item.to"
+            @contextmenu.prevent.native="openMenu(item, $event)"
           >
-            <ul v-click-outside="closeTabsPopver">
-              <li @click="refresh(item)">刷新</li>
-              <li v-if="!item.affix" @click="delTabs(item)">
-                关闭
-              </li>
-              <li @click="closeOthers(item)">关闭其他</li>
-              <li @click="closeAll(item)">关闭所有</li>
-            </ul>
-
-            <router-link
-              slot="reference"
-              ref="tag"
-              class="tabs-item"
-              :to="item.to"
-              @contextmenu.prevent.native="openTabsPopver(index)"
-            >
-              {{ item.title }}
-              <i
-                class="el-icon-close"
-                v-if="!item.affix"
-                @click.prevent.stop="delTabs(item)"
-              ></i>
-            </router-link>
-          </el-popover>
-        </template>
+            {{ item.title }}
+            <i
+              class="el-icon-close"
+              v-if="!item.affix"
+              @click.prevent.stop="delTabs(item)"
+            ></i>
+          </router-link>
+        </transition-group>
       </draggable>
     </scroll-pane>
+    <ul
+      v-show="contextmenu.visible"
+      :style="{ left: contextmenu.actuallyLeft + 'px' }"
+      class="contextmenu"
+    >
+      <li @click="refresh(contextmenu.item)">刷新</li>
+      <li v-if="!contextmenu.item.affix" @click="delTabs(contextmenu.item)">
+        关闭
+      </li>
+      <li @click="closeOthers(contextmenu.item)">关闭其他</li>
+      <li @click="closeAll(contextmenu.item)">关闭所有</li>
+    </ul>
   </div>
 </template>
 
@@ -51,6 +47,9 @@
 import draggable from "vuedraggable";
 import ScrollPane from "./ScrollPane";
 
+// import throttle from "throttle-debounce/throttle";
+//可以检测dom元素改变的插件
+var elementResizeDetectorMaker = require("element-resize-detector");
 export default {
   components: {
     draggable,
@@ -66,6 +65,15 @@ export default {
         scrollSensitivity: 100, //就是鼠标靠近边缘多远开始滚动默认30
         scrollSpeed: 500, //滚动速度，单位应该是:像素/秒
       },
+      contextmenu: {
+        visible: false,
+        item: {}, //当前操作的tabs
+        theoryLeft: 0, //理论上的left
+        actuallyLeft: 0, //实际上的left
+      },
+      erdUltraFast: elementResizeDetectorMaker({
+        strategy: "scroll", //<- For ultra performance.
+      }),
     };
   },
   mounted() {
@@ -83,26 +91,25 @@ export default {
         }
       });
     },
-    // 打开popver
-    openTabsPopver(index) {
-      const list = this.tabsItem.map((item) => {
-        return {
-          ...item,
-          visible: false,
-        };
-      });
-      list[index].visible = true;
-      this.tabsItem = list;
+    //tabs点击右键执行的函数
+    openMenu(item, event) {
+      this.contextmenu.item = item;
+      this.contextmenu.theoryLeft =
+        event.toElement.offsetLeft + event.toElement.offsetWidth / 2 + 15;
+      this.onResize();
+      this.contextmenu.visible = true;
     },
-    // 关闭popver
-    closeTabsPopver() {
-      const list = this.tabsItem.map((item) => {
-        return {
-          ...item,
-          visible: false,
-        };
-      });
-      this.tabsItem = list;
+    //关闭右键菜单
+    closeMenu() {
+      this.contextmenu.visible = false;
+    },
+    //计算右键菜单的实际位置，在浏览器窗口改变时会执行
+    onResize() {
+      if (this.contextmenu.theoryLeft + 80 > this.$el.clientWidth) {
+        this.contextmenu.actuallyLeft = this.$el.clientWidth - 80;
+      } else {
+        this.contextmenu.actuallyLeft = this.contextmenu.theoryLeft;
+      }
     },
     //刷新
     refresh(item) {
@@ -115,13 +122,11 @@ export default {
     },
     //删除tabs
     delTabs(item) {
-      this.closeTabsPopver();
       if (item.affix) return;
       this.$store.commit("delTabs", item);
     },
     //关闭其他
     closeOthers(item) {
-      this.closeTabsPopver();
       this.$store.commit("closeOthers", item);
     },
     //关闭所有
@@ -144,6 +149,15 @@ export default {
     $route() {
       this.$store.commit("addTabs", this.$route);
       this.moveToCurrentTag();
+    },
+    "contextmenu.visible": function(value) {
+      if (value) {
+        document.body.addEventListener("click", this.closeMenu);
+        this.erdUltraFast.listenTo(this.$el, this.onResize);
+      } else {
+        document.body.removeEventListener("click", this.closeMenu);
+        this.erdUltraFast.removeListener(this.$el, this.onResize);
+      }
     },
   },
 };
@@ -212,6 +226,18 @@ export default {
 .ghost-class {
   opacity: 0;
 }
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.flip-list-enter-active,
+.flip-list-leave-active {
+  transition: all 0.5s;
+}
+.flip-list-enter,
+.flip-list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 .el-icon-close {
   border-radius: 50%;
   font-size: 12px;
@@ -220,22 +246,28 @@ export default {
   background-color: #c0c4cc;
   color: #fff;
 }
-</style>
-<style>
-body .layout--tabs--popover {
-  min-width: 100px;
+.contextmenu {
+  width: 80px;
+  margin: 0;
+  background: #fff;
+  z-index: 3000;
+  position: absolute;
+  top: 30px;
+  list-style-type: none;
   padding: 5px 0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #333;
   box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
 }
-body .layout--tabs--popover ul {
-  list-style-type: none;
-}
-body .layout--tabs--popover li {
+
+.contextmenu li {
   margin: 0;
   padding: 7px 16px;
   cursor: pointer;
 }
-body .layout--tabs--popover li:hover {
+.contextmenu li:hover {
   background: #eee;
 }
 </style>
