@@ -1,10 +1,9 @@
 // 在这里注册你的业务页面
 export default [
   {
-    path: "/about",
-    name: "About",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/pages/About.vue"),
+    path: "/form",
+    name: "Form",
+    component: () => import(/* webpackChunkName: "form" */ "@/pages/Form.vue"),
     meta: {},
   },
   {
