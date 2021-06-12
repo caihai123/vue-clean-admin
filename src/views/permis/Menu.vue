@@ -61,7 +61,11 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title="新增" :visible.sync="visible" @closed="resetFields">
+    <el-dialog
+      :title="form.id ? '编辑' : '新增'"
+      :visible.sync="visible"
+      @closed="resetFields"
+    >
       <el-form ref="form" :model="form" label-width="80px" label-suffix="：">
         <el-form-item>
           <div slot="label">
@@ -169,7 +173,7 @@
 </template>
 
 <script>
-import { getMenuList } from "@/api/menu";
+import { getMenuList } from "@/api/permis";
 import { treeFilter } from "@/utils/index";
 
 const defaultForm = {
