@@ -1,7 +1,7 @@
 import Vue from "vue";
 import router from "@/router";
 import store from "@/store";
-import { getMenuList } from "@/api/login";
+import { getMenuList } from "@/api/menu";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css"; // progress bar style
 
