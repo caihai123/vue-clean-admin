@@ -1,125 +1,246 @@
 <template>
   <div>
-    <div class="head">
+    <div style="margin-bottom: 20px">
       <el-input
         v-model="searchValue"
         clearable
-        placeholder="输入关键字查询"
+        placeholder="可输入 title path icon 查询"
         prefix-icon="el-icon-search"
-        class="input-item"
+        style="width:400px"
+      ></el-input>
+      <el-button
+        type="primary"
+        icon="el-icon-document-add"
+        @click="visible = true"
+        >新增</el-button
       >
-      </el-input>
-      <el-button type="primary" icon="el-icon-document-add">新增</el-button>
     </div>
-    <ElTableEdit
-      :data="filterTableData"
-      :columns="columns"
-      border
-      stripe
-      style="width: 100%"
-      @submitRow="submit"
-    >
-      <template v-slot:column-actions="{ row, $index }">
-        <el-button @click="delItem(row, $index)" type="danger" size="small">
-          删除
-        </el-button>
-      </template>
-    </ElTableEdit>
+
+    <el-table :data="filterTableData" border row-key="id">
+      <el-table-column label="标题">
+        <template slot-scope="{ row }">
+          <el-tag v-if="row.affix" size="mini">affix</el-tag>
+          <span size="small">{{ row.title }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="path" label="路径"></el-table-column>
+      <el-table-column prop="icon" label="图标">
+        <template slot-scope="{ row }">
+          <i :class="row.icon"></i>
+        </template>
+      </el-table-column>
+      <el-table-column prop="index" label="排序"></el-table-column>
+      <el-table-column label="操作" width="250">
+        <template slot-scope="{ row }">
+          <el-button
+            size="mini"
+            type="primary"
+            plain
+            @click="
+              () => {
+                form = { ...row };
+                visible = true;
+              }
+            "
+            >编辑</el-button
+          >
+          <el-button size="mini" type="danger">删除</el-button>
+          <el-button
+            v-if="row.type === '2'"
+            size="mini"
+            type="primary"
+            @click="
+              () => {
+                form.parentId = row.id;
+                visible = true;
+              }
+            "
+            >添加子菜单</el-button
+          >
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-dialog title="新增" :visible.sync="visible" @closed="resetFields">
+      <el-form ref="form" :model="form" label-width="80px" label-suffix="：">
+        <el-form-item>
+          <div slot="label">
+            <el-tooltip
+              effect="dark"
+              content="菜单和目录有明显区别"
+              placement="top"
+            >
+              <div>
+                类型
+                <i class="el-icon-info"></i>：
+              </div>
+            </el-tooltip>
+          </div>
+
+          <el-radio-group
+            v-model="form.type"
+            size="medium"
+            :disabled="!!(form.children && form.children.length)"
+          >
+            <el-radio-button label="1">菜单</el-radio-button>
+            <el-radio-button label="2">目录</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
+        <el-row>
+          <el-col :span="12" v-if="form.parentId">
+            <el-form-item label="父节点" required key="parentId">
+              <el-cascader
+                v-model="form.parentId"
+                :options="tableData"
+                :props="{
+                  value: 'id',
+                  label: 'title',
+                  checkStrictly: true,
+                }"
+                disabled
+                style="width:100%"
+              ></el-cascader>
+            </el-form-item>
+          </el-col>
+          <el-Col :span="12">
+            <el-form-item
+              label="标题"
+              prop="title"
+              key="title"
+              :rules="[
+                { required: true, message: '标题是必填项！' },
+                {
+                  min: 2,
+                  max: 10,
+                  message: '长度在 2 到 10 个字符！',
+                },
+              ]"
+            >
+              <el-input v-model="form.title" clearable></el-input>
+            </el-form-item>
+          </el-Col>
+          <el-Col :span="12" v-if="form.type === '1'">
+            <el-form-item
+              label="路径"
+              prop="path"
+              key="path"
+              :rules="[
+                { required: true, message: '路径是必填项！' },
+                {
+                  pattern: /^\/[\w-/]*$/,
+                  message: '请输入正确的路径！',
+                },
+              ]"
+            >
+              <el-input v-model="form.path" clearable></el-input>
+            </el-form-item>
+          </el-Col>
+          <el-Col :span="12">
+            <el-form-item label="图标" key="icon">
+              <el-input v-model="form.icon" clearable></el-input>
+            </el-form-item>
+          </el-Col>
+          <el-Col :span="12">
+            <el-form-item label="排序" required>
+              <el-input-number v-model="form.index" :min="0"></el-input-number>
+            </el-form-item>
+          </el-Col>
+        </el-row>
+        <el-row>
+          <el-Col :span="8" v-if="form.type === '1'">
+            <el-form-item label="affix">
+              <el-checkbox v-model="form.affix">开启</el-checkbox>
+            </el-form-item>
+          </el-Col>
+          <el-Col :span="8" v-if="form.type === '1'">
+            <el-form-item label="hidden">
+              <el-checkbox v-model="form.hidden">开启</el-checkbox>
+            </el-form-item>
+          </el-Col>
+        </el-row>
+      </el-form>
+
+      <span slot="footer">
+        <el-button @click="visible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { getMenuList } from "@/api/menu";
+import { treeFilter } from "@/utils/index";
+
+const defaultForm = {
+  parentId: "",
+  type: "1",
+  title: "",
+  path: "",
+  icon: "",
+  index: "",
+  affix: false,
+  hidden: false,
+  children: false,
+};
+
 export default {
   name: "Menu",
-  components: {},
   data() {
     return {
       searchValue: "",
-      columns: [
-        {
-          title: "菜单名",
-          key: "title",
-          edit: true,
-          rules: [
-            { required: true, message: "请输入菜单名称" },
-            {
-              min: 2,
-              max: 5,
-              message: "长度在 2 到 5 个字符",
-            },
-          ],
-          clearable: true,
-        },
-        {
-          title: "路径",
-          key: "path",
-          edit: true,
-          rules: [
-            { required: true, message: "请输入菜单路径" },
-            {
-              pattern: /^\/[\w-/]*$/,
-              message: "请输入正确的路径",
-            },
-          ],
-          clearable: true,
-        },
-        {
-          title: "图标",
-          key: "icon",
-          type: "icon",
-          edit: true,
-          rules: [],
-          clearable: true,
-        },
-      ],
-      tableData: [
-        { title: "首页", path: "/index", icon: "el-icon-s-home" },
-        { title: "菜单管理", path: "/permis/menu", icon: "" },
-        { title: "角色管理", path: "/permis/role", icon: "" },
-        { title: "用户管理", path: "/permis/account", icon: "" },
-      ],
+      tableData: [],
+
+      visible: false,
+      form: { ...defaultForm },
     };
   },
   computed: {
     filterTableData() {
-      return this.tableData.filter(
+      return treeFilter(
+        this.tableData,
         (item) =>
           !this.searchValue ||
           item.title.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-          item.path.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-          item.icon.toLowerCase().includes(this.searchValue.toLowerCase())
+          (item.path &&
+            item.path.toLowerCase().includes(this.searchValue.toLowerCase())) ||
+          (item.icon &&
+            item.icon.toLowerCase().includes(this.searchValue.toLowerCase()))
       );
     },
   },
+  created() {
+    getMenuList().then((value) => (this.tableData = value.data.data || []));
+  },
   methods: {
-    // 新增
-    addMenuItem() {},
-    // 保存
-    submit(row, valid) {
-      console.log(row);
-      console.log(valid);
-      if (valid) {
-        this.$set(row, "_edit", false);
-      }
+    // 提交表单
+    submitForm() {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          let params;
+          if (this.form.type === "1") {
+            // 菜单类型
+            params = this.form;
+          } else {
+            // 目前只有菜单和目录两种
+            params = {
+              parentId: this.form.parentId,
+              id: this.form.id,
+              title: this.form.title,
+              icon: this.form.icon,
+              index: this.form.index,
+            };
+          }
+          console.log(params);
+        }
+      });
     },
-    // 删除
-    delItem(row, index) {
-      console.log(row);
-      console.log(index);
+
+    // 重置表单
+    resetFields() {
+      this.$refs.form.resetFields();
+      this.form = { ...defaultForm };
     },
   },
 };
 </script>
-
-<style scoped>
-.head {
-  margin-bottom: 20px;
-}
-.input-item {
-  width: 400px;
-}
-.tab-footer {
-  padding: 20px;
-  text-align: right;
-}
-</style>
