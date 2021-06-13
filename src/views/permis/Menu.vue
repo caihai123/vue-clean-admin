@@ -32,16 +32,7 @@
       <el-table-column prop="index" label="排序"></el-table-column>
       <el-table-column label="操作" width="250">
         <template slot-scope="{ row }">
-          <el-button
-            size="mini"
-            type="primary"
-            plain
-            @click="
-              () => {
-                form = { ...row };
-                visible = true;
-              }
-            "
+          <el-button size="mini" type="primary" plain @click="editRow(row)"
             >编辑</el-button
           >
           <el-button size="mini" type="danger">删除</el-button>
@@ -217,6 +208,12 @@ export default {
     getMenuList().then((value) => (this.tableData = value.data.data || []));
   },
   methods: {
+    // 编辑
+    editRow(row) {
+      this.form = { ...defaultForm, ...row };
+      this.visible = true;
+    },
+
     // 提交表单
     submitForm() {
       this.$refs.form.validate((valid) => {
