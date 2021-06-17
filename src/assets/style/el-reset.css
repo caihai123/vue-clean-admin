@@ -8,3 +8,10 @@
 .el-tag + .el-tag {
   margin-left: 10px;
 }
+
+.el-dialog__header{
+  border-bottom: 1px solid #f0f0f0;
+}
+.el-dialog__footer{
+  border-top: 1px solid #f0f0f0;
+}

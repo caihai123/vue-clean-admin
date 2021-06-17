@@ -17,6 +17,8 @@ Vue.use(ElementUI);
 Vue.use(Fragment.Plugin);
 Vue.use(ElTableEdit);
 
+Vue.prototype.$ELEMENT = { size: "medium", zIndex: 3000 };
+
 new Vue({
   router,
   store,
