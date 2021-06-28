@@ -4,19 +4,19 @@
     :rules="[
       {
         required: required,
-        message: '请输入手机号',
+        message: '请输入' + label,
         trigger: 'blur',
       },
       {
-        pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
-        message: '请输入正确的手机号',
+        pattern: /^\/[\w-/]*$/,
+        message: '请输入正确的' + label,
         trigger: 'blur',
       },
     ]"
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <el-input v-model="valueVice" maxlength="11" clearable></el-input>
+    <el-input v-model="valueVice" clearable></el-input>
   </el-form-item>
 </template>
 
@@ -33,7 +33,7 @@ export default {
     },
     label: {
       type: String,
-      default: "手机号",
+      default: "路径",
     },
   },
   computed: {
