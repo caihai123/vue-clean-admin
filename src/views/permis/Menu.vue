@@ -132,7 +132,11 @@
           </el-Col>
           <el-Col :span="12">
             <el-form-item label="图标" key="icon">
-              <el-input v-model="form.icon" clearable></el-input>
+              <IconSelect
+                v-model="form.icon"
+                clearable
+                style="width:100%"
+              ></IconSelect>
             </el-form-item>
           </el-Col>
           <el-Col :span="12">
@@ -166,6 +170,7 @@
 <script>
 import { getMenuList } from "@/api/permis";
 import { treeFilter } from "@/utils/index";
+import IconSelect from "@/components/IconSelect";
 
 const defaultForm = {
   parentId: "",
@@ -181,6 +186,7 @@ const defaultForm = {
 
 export default {
   name: "Menu",
+  components: { IconSelect },
   data() {
     return {
       searchValue: "",
