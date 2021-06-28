@@ -33,7 +33,7 @@ export default [
   {
     path: "/icon",
     name: "Icon",
-    component: () => import(/* webpackChunkName: "icon" */ "@/views/icon.vue"),
+    component: () => import(/* webpackChunkName: "icon" */ "@/views/Icon.vue"),
     meta: {},
   },
   {
