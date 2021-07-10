@@ -17,7 +17,7 @@
     v-bind="$attrs"
     v-on="$listeners"
   >
-    <el-input v-model="valueVice" maxlength="11"></el-input>
+    <el-input v-model="valueVice" maxlength="11" clearable></el-input>
   </el-form-item>
 </template>
 

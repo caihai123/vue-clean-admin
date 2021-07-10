@@ -115,24 +115,15 @@
             </el-form-item>
           </el-Col>
           <el-Col :span="12" v-if="form.type === '1'">
-            <el-form-item
-              label="路径"
-              prop="path"
-              key="path"
-              :rules="[
-                { required: true, message: '路径是必填项！' },
-                {
-                  pattern: /^\/[\w-/]*$/,
-                  message: '请输入正确的路径！',
-                },
-              ]"
-            >
-              <el-input v-model="form.path" clearable></el-input>
-            </el-form-item>
+            <PathFormItem v-model="form.path" prop="path" key="path" required />
           </el-Col>
           <el-Col :span="12">
             <el-form-item label="图标" key="icon">
-              <el-input v-model="form.icon" clearable></el-input>
+              <IconSelect
+                v-model="form.icon"
+                clearable
+                style="width:100%"
+              ></IconSelect>
             </el-form-item>
           </el-Col>
           <el-Col :span="12">
@@ -166,6 +157,8 @@
 <script>
 import { getMenuList } from "@/api/permis";
 import { treeFilter } from "@/utils/index";
+import IconSelect from "@/components/IconSelect";
+import PathFormItem from "@/components/form/path-form.item";
 
 const defaultForm = {
   parentId: "",
@@ -181,6 +174,7 @@ const defaultForm = {
 
 export default {
   name: "Menu",
+  components: { IconSelect, PathFormItem },
   data() {
     return {
       searchValue: "",
