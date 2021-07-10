@@ -33,12 +33,10 @@ export default {
       } else {
         return matched
           .filter((item) => item.meta && item.meta.title)
-          .map((item) => {
-            return {
-              path: item.path,
-              title: item.meta.title,
-            };
-          });
+          .map((item) => ({
+            path: item.path,
+            title: item.meta.title,
+          }));
       }
     },
   },
