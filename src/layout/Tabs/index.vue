@@ -192,12 +192,12 @@ export default {
   margin-left: 5px;
 }
 
-.router-link-active {
+.router-link-exact-active {
   background: #fff;
   border-color: #fff;
   color: #606266;
 }
-.router-link-active:hover {
+.router-link-exact-active:hover {
   background: #fff;
   border-color: #fff;
   color: #909399;
@@ -212,7 +212,7 @@ export default {
   position: relative;
   margin: 0 2px;
 }
-.router-link-active::before {
+.router-link-exact-active::before {
   content: "";
   background: $tabs-item-active-color;
   display: inline-block;
