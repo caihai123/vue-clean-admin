@@ -24,4 +24,18 @@ export default [
     component: () => import(/* webpackChunkName: "menu" */ "@/pages/Menu3.vue"),
     meta: {},
   },
+  {
+    path: "/nested",
+    name: "Nested",
+    component: () =>
+      import(/* webpackChunkName: "nested" */ "@/pages/Nested/index.vue"),
+    meta: {},
+  },
+  {
+    path: "/nested/details",
+    name: "NesteDetails",
+    component: () =>
+      import(/* webpackChunkName: "nested" */ "@/pages/Nested/details.vue"),
+    meta: {},
+  },
 ];

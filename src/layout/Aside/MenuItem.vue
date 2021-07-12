@@ -1,7 +1,7 @@
 // 递归组件，用于渲染导航菜单
 <template>
   <fragment v-if="!item.hidden">
-    <template v-if="item.children">
+    <template v-if="item.type === '2' && item.children">
       <el-submenu v-if="item.children.length > 1" :index="item.id">
         <template slot="title">
           <i :class="item.icon"></i>

@@ -7,10 +7,13 @@ const flattenDeep = (array = []) => {
   array.forEach((item) => deep(item));
 
   function deep(obj) {
+    if (obj.type === "1") {
+      // eslint-disable-next-line no-unused-vars
+      const { children, ...item } = obj;
+      list.push(item);
+    }
     if (obj.children && obj.children.length) {
       obj.children.forEach((item) => deep(item));
-    } else {
-      list.push(obj);
     }
   }
 
@@ -39,14 +42,11 @@ const mappingRouter = (routerList, menulist) => {
 // 初始化路由权限
 function initRouterPermis(routerList) {
   const find = routerList.find((item) => item.path === "/");
-
-  find.children.forEach((item) => {
-    if (["Err401", "Err404", "redirect"].indexOf(item.name) !== -1) {
-      item.meta.permission = true;
-    } else {
-      item.meta.permission = false;
-    }
-  });
+  find.children.forEach(
+    (item) =>
+      (item.meta.permission =
+        ["Err401", "Err404", "redirect"].indexOf(item.name) !== -1)
+  );
 }
 
 let routerList = router.options.routes; // 前端注册的路由表
@@ -106,7 +106,7 @@ const layout = {
     },
     // 添加tabs
     addTabs(state, route) {
-      history = Array.from(state.tabs);
+      history = [...state.tabs];
       // 只要页面存在title和name就会生成tab
       if (route.meta && route.meta.title && route.name) {
         const index = state.tabs.findIndex((item) => item.path === route.path);
@@ -127,14 +127,11 @@ const layout = {
 
     // 删除一个tabs
     delTabs(state, route) {
-      history = Array.from(state.tabs);
+      history = [...state.tabs];
       if (!route || route.affix) return;
       state.tabs = state.tabs.filter((item) => {
         // 增加容错率 优先使用 路径 匹配 其次使用 name 匹配
-        if (item.to !== route.to && item.to !== route.name) {
-          return true;
-        }
-        return false;
+        return item.to !== route.to && item.to !== route.name;
       });
 
       goRouter();
@@ -167,13 +164,11 @@ const layout = {
     },
 
     setMenuList(state, list) {
-      state.menuList = Array.from(list);
-
-      mappingRouter(routerList, flattenDeep(list));
-
+      state.menuList = [...list];
+      const menuList = flattenDeep(list);
+      mappingRouter(routerList, menuList); // 这里执行完之后会改变menuList的数据
       state.tabs = [];
-
-      list.forEach((item) => {
+      menuList.forEach((item) => {
         if (item.title && item.name && item.affix) {
           state.tabs.push({
             path: item.path,
