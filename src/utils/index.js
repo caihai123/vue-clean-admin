@@ -27,7 +27,9 @@ function deepFilter(treeList, fn) {
       if (item.children.length) {
         return true;
       } else {
-        return false;
+        // 之前的逻辑是它只有在属于目录的时候才会有children，所以不需要考虑本身匹配的情况
+        // 此系统中菜单下还可能会有菜单，所以要处理他自己就能匹配的情况
+        return fn(item);
       }
     } else {
       return fn(item);
