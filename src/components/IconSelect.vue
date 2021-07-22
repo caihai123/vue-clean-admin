@@ -1,7 +1,7 @@
 <template>
   <el-select
-    class="icon-select"
     v-model="icon"
+    class="icon-select"
     filterable
     placeholder="请选择图标"
     clearable

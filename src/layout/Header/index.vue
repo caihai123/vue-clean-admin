@@ -20,9 +20,9 @@
         placement="bottom"
       >
         <el-switch
+          v-model="value"
           active-color="#0a0a0a"
           inactive-color="#409EFF"
-          v-model="value"
         >
         </el-switch>
       </el-tooltip>

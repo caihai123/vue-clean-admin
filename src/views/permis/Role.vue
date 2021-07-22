@@ -14,17 +14,18 @@
       <el-table-column label="操作" width="150">
         <template slot="header">
           <el-button
+            size="small"
+            type="primary"
+            icon="el-icon-document-add"
             @click="
               () => {
                 $refs.menuListRef && $refs.menuListRef.setCheckedKeys([]);
                 visible = true;
               }
             "
-            size="small"
-            type="primary"
-            icon="el-icon-document-add"
-            >新 增</el-button
           >
+            新 增
+          </el-button>
         </template>
         <template slot-scope="{ row }">
           <el-button
@@ -63,11 +64,11 @@
         </el-form-item>
         <el-form-item label="备注">
           <el-input
+            v-model="form.description"
             type="textarea"
             :rows="4"
             maxlength="200"
             show-word-limit
-            v-model="form.description"
           />
         </el-form-item>
 

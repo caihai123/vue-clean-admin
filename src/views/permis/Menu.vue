@@ -12,8 +12,9 @@
         type="primary"
         icon="el-icon-document-add"
         @click="visible = true"
-        >新增</el-button
       >
+        新增
+      </el-button>
     </div>
 
     <el-table :data="filterTableData" border row-key="id">
@@ -32,9 +33,9 @@
       <el-table-column prop="index" label="排序"></el-table-column>
       <el-table-column label="操作" width="250">
         <template slot-scope="{ row }">
-          <el-button size="mini" type="primary" plain @click="editRow(row)"
-            >编辑</el-button
-          >
+          <el-button size="mini" type="primary" plain @click="editRow(row)">
+            编辑
+          </el-button>
           <el-button size="mini" type="danger">删除</el-button>
           <el-button
             v-if="row.type === '2'"
@@ -46,8 +47,9 @@
                 visible = true;
               }
             "
-            >添加子菜单</el-button
           >
+            添加子菜单
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -82,8 +84,8 @@
           </el-radio-group>
         </el-form-item>
         <el-row>
-          <el-col :span="12" v-if="form.parentId">
-            <el-form-item label="父节点" required key="parentId">
+          <el-col v-if="form.parentId" :span="12">
+            <el-form-item key="parentId" label="父节点" required>
               <el-cascader
                 v-model="form.parentId"
                 :options="tableData"
@@ -99,9 +101,9 @@
           </el-col>
           <el-Col :span="12">
             <el-form-item
+              key="title"
               label="标题"
               prop="title"
-              key="title"
               :rules="[
                 { required: true, message: '标题是必填项！' },
                 {
@@ -114,11 +116,11 @@
               <el-input v-model="form.title" clearable></el-input>
             </el-form-item>
           </el-Col>
-          <el-Col :span="12" v-if="form.type === '1'">
-            <PathFormItem v-model="form.path" prop="path" key="path" required />
+          <el-Col v-if="form.type === '1'" :span="12">
+            <PathFormItem key="path" v-model="form.path" prop="path" required />
           </el-Col>
           <el-Col :span="12">
-            <el-form-item label="图标" key="icon">
+            <el-form-item key="icon" label="图标">
               <IconSelect
                 v-model="form.icon"
                 clearable
@@ -133,12 +135,12 @@
           </el-Col>
         </el-row>
         <el-row>
-          <el-Col :span="8" v-if="form.type === '1'">
+          <el-Col v-if="form.type === '1'" :span="8">
             <el-form-item label="affix">
               <el-checkbox v-model="form.affix">开启</el-checkbox>
             </el-form-item>
           </el-Col>
-          <el-Col :span="8" v-if="form.type === '1'">
+          <el-Col v-if="form.type === '1'" :span="8">
             <el-form-item label="hidden">
               <el-checkbox v-model="form.hidden">开启</el-checkbox>
             </el-form-item>

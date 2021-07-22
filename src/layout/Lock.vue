@@ -15,10 +15,10 @@
           </el-button>
           <el-tooltip content="退出登录" placement="bottom" effect="light">
             <el-button
-              @click="unLogin"
               type="primary"
               plain
               icon="el-icon-switch-button"
+              @click="unLogin"
             >
             </el-button>
           </el-tooltip>

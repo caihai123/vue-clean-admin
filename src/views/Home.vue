@@ -7,22 +7,24 @@
         type="primary"
         href="https://panjiachen.gitee.io/vue-element-admin-site/zh/"
         target="_blank"
-        >vue-element-admin</el-link
       >
+        vue-element-admin
+      </el-link>
       的部分代码，特别是权限路由做了很大的改动。
     </p>
     <p>
       它也是基于
-      <el-link type="primary" href="https://cn.vuejs.org/" target="_blank"
-        >vue</el-link
-      >
+      <el-link type="primary" href="https://cn.vuejs.org/" target="_blank">
+        vue
+      </el-link>
       +
       <el-link
         type="primary"
         href="https://element.eleme.cn/#/zh-CN/"
         target="_blank"
-        >element-ui</el-link
       >
+        element-ui
+      </el-link>
       实现。目前没有集成太多功能，所以也没什么好配置的，简单来说就是拿来即用。
     </p>
 
@@ -53,8 +55,10 @@
             type="primary"
             href="https://panjiachen.gitee.io/vue-element-admin-site/zh/"
             target="_blank"
-            >vue-element-admin</el-link
-          >，简单说一下思路：每次路由跳转时，判断当前路由的meta里是否存在title和name，如果有则添加到store里。刷新的时候先跳转到
+          >
+            vue-element-admin
+          </el-link>
+          ，简单说一下思路：每次路由跳转时，判断当前路由的meta里是否存在title和name，如果有则添加到store里。刷新的时候先跳转到
           redirect 页面，在这里先删除缓存再重新进入。
         </p>
       </li>
@@ -65,8 +69,9 @@
             type="primary"
             href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/advanced/theme.html"
             target="_blank"
-            >https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/advanced/theme.html</el-link
           >
+            https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/advanced/theme.html
+          </el-link>
         </p>
         <p>还有一种只能切换主题色：我觉得没有意义，就没做。</p>
       </li>
@@ -130,8 +135,9 @@
             type="primary"
             href="https://github.com/sindresorhus/screenfull.js"
             target="_blank"
-            >screenfull.js</el-link
           >
+            screenfull.js
+          </el-link>
         </p>
       </li>
       <li>
@@ -145,8 +151,9 @@
             type="primary"
             href="https://github.com/rstacruz/nprogress"
             target="_blank"
-            >nprogress</el-link
           >
+            nprogress
+          </el-link>
         </p>
         <p>
           这是一个虚假的进度条，大部分网站用的都是这个，前端是不可能知道真正的进度的，使用它的目的仅仅是提升用户体验。目前只用在了页面跳转中，如果你愿意，还可以使用在请求中。

@@ -5,9 +5,9 @@
         v-model="tabsItem"
         v-bind="options"
         group="people"
+        tag="span"
         @start="drag = true"
         @end="drag = false"
-        tag="span"
       >
         <transition-group tag="span" name="flip-list">
           <router-link
@@ -20,8 +20,8 @@
           >
             {{ item.title }}
             <i
-              class="el-icon-close"
               v-if="!item.affix"
+              class="el-icon-close"
               @click.prevent.stop="delTabs(item)"
             ></i>
           </router-link>

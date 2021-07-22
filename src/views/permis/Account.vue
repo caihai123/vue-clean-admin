@@ -10,9 +10,9 @@
     </el-button>
     <template v-slot:column-actions="scope">
       <el-button
-        @click="delItem(scope.row, scope.$index)"
         type="danger"
         size="small"
+        @click="delItem(scope.row, scope.$index)"
       >
         删除
       </el-button>

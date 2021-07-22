@@ -17,14 +17,14 @@
       ></el-input>
       <div class="item-box">
         <div
-          @click="handleClipboard(item, $event)"
-          class="icon-item"
           v-for="item in elIcon.filter(
             (item) =>
               !searchValue ||
               item.toLowerCase().includes(searchValue.toLowerCase())
           )"
           :key="item"
+          class="icon-item"
+          @click="handleClipboard(item, $event)"
         >
           <i :class="item"></i>
           <span>{{ item }}</span>
