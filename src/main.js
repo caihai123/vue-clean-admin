@@ -13,6 +13,16 @@ import ElTableEdit from "el-table-edit";
 
 Vue.config.productionTip = false;
 
+// 设置element组件默认值
+ElementUI.Input.props.clearable = {
+  type: Boolean,
+  default: true,
+};
+ElementUI.Select.props.clearable = {
+  type: Boolean,
+  default: true,
+};
+
 Vue.use(ElementUI);
 Vue.use(Fragment.Plugin);
 Vue.use(ElTableEdit);
