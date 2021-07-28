@@ -120,6 +120,7 @@ export default {
     };
   },
   computed: {},
+  watch: {},
   created() {},
   mounted() {},
   methods: {
@@ -130,7 +131,6 @@ export default {
       console.log(index);
     },
   },
-  watch: {},
 };
 </script>
 

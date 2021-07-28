@@ -69,6 +69,30 @@ export default {
       },
     };
   },
+  computed: {
+    // tabs标签列表
+    tabsItem: {
+      get() {
+        return this.$store.state.layout.tabs;
+      },
+      set(value) {
+        this.$store.commit("replaceTabs", value);
+      },
+    },
+  },
+  watch: {
+    $route() {
+      this.$store.commit("addTabs", this.$route);
+      this.moveToCurrentTag();
+    },
+    "contextmenu.visible": function(value) {
+      if (value) {
+        document.body.addEventListener("click", this.closeMenu);
+      } else {
+        document.body.removeEventListener("click", this.closeMenu);
+      }
+    },
+  },
   mounted() {
     this.$store.commit("addTabs", this.$route);
   },
@@ -123,30 +147,6 @@ export default {
     //关闭所有
     closeAll() {
       this.$store.commit("emptyTabs"); //清空tabs
-    },
-  },
-  computed: {
-    // tabs标签列表
-    tabsItem: {
-      get() {
-        return this.$store.state.layout.tabs;
-      },
-      set(value) {
-        this.$store.commit("replaceTabs", value);
-      },
-    },
-  },
-  watch: {
-    $route() {
-      this.$store.commit("addTabs", this.$route);
-      this.moveToCurrentTag();
-    },
-    "contextmenu.visible": function(value) {
-      if (value) {
-        document.body.addEventListener("click", this.closeMenu);
-      } else {
-        document.body.removeEventListener("click", this.closeMenu);
-      }
     },
   },
 };

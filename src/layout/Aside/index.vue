@@ -87,14 +87,14 @@ export default {
 
     window.addEventListener("resize", this.resizeEnet);
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.resizeEnet);
+  },
   methods: {
     // 控制侧边栏导航
     setCollapse(collapse) {
       this.$store.commit("setCollapse", collapse);
     },
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.resizeEnet);
   },
 };
 </script>

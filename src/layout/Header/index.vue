@@ -66,6 +66,11 @@ export default {
       return this.$store.state.layout.isCollapse;
     },
   },
+  watch: {
+    value() {
+      this.toggleClass(document.body, "custom-theme");
+    },
+  },
   methods: {
     // 控制侧边栏导航
     setCollapse(collapse) {
@@ -112,11 +117,6 @@ export default {
           this.$store.commit("updateLock", value);
         })
         .catch(() => {});
-    },
-  },
-  watch: {
-    value() {
-      this.toggleClass(document.body, "custom-theme");
     },
   },
 };

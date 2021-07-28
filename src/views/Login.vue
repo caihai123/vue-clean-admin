@@ -49,6 +49,9 @@ export default {
   mounted() {
     window.addEventListener("keypress", this.onEnter);
   },
+  beforeDestroy() {
+    window.removeEventListener("keypress", this.onEnter);
+  },
   methods: {
     onSubmit() {
       this.$refs.form.validate((valid) => {
@@ -74,9 +77,6 @@ export default {
         this.onSubmit();
       }
     },
-  },
-  beforeDestroy() {
-    window.removeEventListener("keypress", this.onEnter);
   },
 };
 </script>

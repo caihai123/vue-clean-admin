@@ -46,10 +46,10 @@ export default {
     return {};
   },
   computed: {},
+  watch: {},
   created() {},
   mounted() {},
   methods: {},
-  watch: {},
 };
 </script>
 

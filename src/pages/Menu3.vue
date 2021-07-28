@@ -11,10 +11,10 @@ export default {
     return { value: "" };
   },
   computed: {},
+  watch: {},
   created() {},
   mounted() {},
   methods: {},
-  watch: {},
 };
 </script>
 
