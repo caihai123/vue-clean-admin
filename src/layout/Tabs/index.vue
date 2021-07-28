@@ -47,9 +47,6 @@
 import draggable from "vuedraggable";
 import ScrollPane from "./ScrollPane";
 
-// import throttle from "throttle-debounce/throttle";
-//可以检测dom元素改变的插件
-var elementResizeDetectorMaker = require("element-resize-detector");
 export default {
   components: {
     draggable,
@@ -68,12 +65,8 @@ export default {
       contextmenu: {
         visible: false,
         item: {}, //当前操作的tabs
-        theoryLeft: 0, //理论上的left
         actuallyLeft: 0, //实际上的left
       },
-      erdUltraFast: elementResizeDetectorMaker({
-        strategy: "scroll", //<- For ultra performance.
-      }),
     };
   },
   mounted() {
@@ -93,31 +86,29 @@ export default {
     },
     //tabs点击右键执行的函数
     openMenu(item, event) {
-      this.contextmenu.item = item;
-      this.contextmenu.theoryLeft =
-        event.toElement.offsetLeft + event.toElement.offsetWidth / 2 + 15;
-      this.onResize();
+      const menuMinWidth = 80;
+      const offsetLeft = this.$el.getBoundingClientRect().left; // container margin left
+      const offsetWidth = this.$el.offsetWidth; // container width
+      const maxLeft = offsetWidth - menuMinWidth; // left boundary
+      const left = event.clientX - offsetLeft + 15; // 15: margin right
+
+      if (left > maxLeft) {
+        this.contextmenu.actuallyLeft = maxLeft;
+      } else {
+        this.contextmenu.actuallyLeft = left;
+      }
       this.contextmenu.visible = true;
+      this.contextmenu.item = item;
     },
     //关闭右键菜单
     closeMenu() {
       this.contextmenu.visible = false;
     },
-    //计算右键菜单的实际位置，在浏览器窗口改变时会执行
-    onResize() {
-      if (this.contextmenu.theoryLeft + 80 > this.$el.clientWidth) {
-        this.contextmenu.actuallyLeft = this.$el.clientWidth - 80;
-      } else {
-        this.contextmenu.actuallyLeft = this.contextmenu.theoryLeft;
-      }
-    },
     //刷新
     refresh(item) {
       this.$store.commit("setRedirectName", item.name);
       this.$nextTick(() => {
-        this.$router.replace({
-          path: "/redirect" + item.to,
-        });
+        this.$router.replace({ path: "/redirect" + item.to });
       });
     },
     //删除tabs
@@ -153,10 +144,8 @@ export default {
     "contextmenu.visible": function(value) {
       if (value) {
         document.body.addEventListener("click", this.closeMenu);
-        this.erdUltraFast.listenTo(this.$el, this.onResize);
       } else {
         document.body.removeEventListener("click", this.closeMenu);
-        this.erdUltraFast.removeListener(this.$el, this.onResize);
       }
     },
   },
