@@ -36,9 +36,7 @@
           <el-button size="mini" type="primary" plain @click="editRow(row)">
             编辑
           </el-button>
-          <el-button size="mini" type="danger">删除</el-button>
           <el-button
-            v-if="row.type === '2'"
             size="mini"
             type="primary"
             @click="
@@ -50,6 +48,7 @@
           >
             添加子菜单
           </el-button>
+          <el-button size="mini" type="danger">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -64,7 +63,7 @@
           <div slot="label">
             <el-tooltip
               effect="dark"
-              content="菜单和目录有明显区别"
+              content="菜单和目录有明显区别，菜单下不要创建目录"
               placement="top"
             >
               <div>
@@ -74,12 +73,13 @@
             </el-tooltip>
           </div>
 
-          <el-radio-group
-            v-model="form.type"
-            size="medium"
-            :disabled="!!(form.children && form.children.length)"
-          >
-            <el-radio-button label="1">菜单</el-radio-button>
+          <el-radio-group v-model="form.type" size="medium">
+            <el-radio-button
+              label="1"
+              :disabled="!!(form.children && form.children.length)"
+            >
+              菜单
+            </el-radio-button>
             <el-radio-button label="2">目录</el-radio-button>
           </el-radio-group>
         </el-form-item>

@@ -9,6 +9,10 @@ const data = {
     { label: "options", value: "6" },
     { label: "patch", value: "7" },
   ],
+  "menu-type": [
+    { label: "菜单", value: "1" },
+    { label: "目录", value: "2" },
+  ],
 };
 
 export default data;
