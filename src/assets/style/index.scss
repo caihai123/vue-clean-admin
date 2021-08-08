@@ -5,13 +5,17 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
-  color: #2c3e50;
-  
+
   body {
     margin: 0;
     padding: 0;
+    color: $font-color;
   }
 
+  body.dark-theme {
+    color: $dark-font-color;
+  }
+  
   h1,
   h2,
   h3,

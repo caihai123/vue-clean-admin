@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .tabs-scroll {
   display: flex;
   justify-content: space-between;
@@ -118,5 +118,13 @@ export default {
   cursor: pointer;
   background-color: #fff;
   z-index: 1000;
+}
+
+// 黑色模式
+.dark-theme {
+  .tabs-scroll .arrows {
+    border: 1px solid #232019;
+    background-color: #000;
+  }
 }
 </style>

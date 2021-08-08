@@ -154,7 +154,7 @@ export default {
 }
 
 .aside ::v-deep .el-menu-item.is-active {
-  color: $emnu-item-active-coloe;
+  color: $menu-item-active-coloe;
 }
 
 /* 底部箭头按钮样式 */
@@ -167,7 +167,7 @@ export default {
   cursor: pointer;
 }
 .sider-links:hover {
-  color: $emnu-item-active-coloe;
+  color: $menu-item-active-coloe;
 }
 .sider-links i {
   display: inline-block;
@@ -207,5 +207,41 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+// 黑夜模式
+.dark-theme {
+  .aside {
+    background-color: $dark-menu-bg;
+  }
+  .aside ::v-deep .el-menu {
+    background-color: $dark-menu-bg;
+  }
+  .aside ::v-deep .el-menu-item,
+  .aside ::v-deep .el-submenu__title {
+    color: $dark-menu-font-color;
+  }
+
+  .aside ::v-deep .el-menu-item:hover,
+  .aside ::v-deep .el-menu-item:focus,
+  .aside ::v-deep .el-submenu__title:hover,
+  .aside ::v-deep .el-submenu__title:focus {
+    background-color: $dark-menu-item-hover;
+  }
+
+  .aside ::v-deep .el-menu-item.is-active {
+    color: $dark-menu-item-active-coloe;
+  }
+
+  .aside ::v-deep .el-menu-item,
+  .aside ::v-deep .el-submenu__title {
+    color: $dark-menu-font-color;
+  }
+  .sider-logo {
+    background: $dark-menu-logo-bg;
+  }
+  .sider-logo h1 {
+    color: $dark-menu-font-color;
+  }
 }
 </style>

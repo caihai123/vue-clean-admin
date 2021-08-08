@@ -155,23 +155,20 @@ export default {
 <style scoped lang="scss">
 .container {
   position: relative;
-  background-color: #dcdfe6;
+  background-color: $tabs-container-bg;
 }
 .tabs-item {
   display: inline-block;
   overflow: hidden;
-  height: 30px;
-  line-height: 30px;
+  height: 32px;
+  line-height: 32px;
   margin-right: 8px;
   padding: 0 12px;
-  border: 1px solid #f2f6fc;
   background-color: #f2f6fc;
   color: #909399;
   cursor: pointer;
 }
 .tabs-item:hover {
-  color: #606266;
-  border-color: #fff;
   background-color: #fff;
 }
 .tabs-item:hover::before {
@@ -183,12 +180,10 @@ export default {
 
 .router-link-exact-active {
   background: #fff;
-  border-color: #fff;
-  color: #606266;
 }
+
 .router-link-exact-active:hover {
   background: #fff;
-  border-color: #fff;
   color: #909399;
 }
 .tabs-item::before {
@@ -258,5 +253,29 @@ export default {
 }
 .contextmenu li:hover {
   background: #eee;
+}
+
+// 黑夜模式
+.dark-theme {
+  .container {
+    background-color: $dark-tabs-container-bg;
+  }
+  .tabs-item {
+    background-color: #0d0903;
+    color: #6f6c66;
+  }
+  .tabs-item:hover {
+    background-color: #000;
+  }
+  .router-link-exact-active {
+    background: #000;
+  }
+  .contextmenu {
+    color: #ccc;
+    background: #000;
+    li:hover {
+      background: #111;
+    }
+  }
 }
 </style>

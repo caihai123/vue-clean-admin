@@ -68,6 +68,7 @@ export default {
   .main {
     height: calc(100vh - 100px);
     text-align: left;
+    background-color: $layout-main;
   }
 
   .drawer-bg {
@@ -86,5 +87,9 @@ export default {
       z-index: 1999;
     }
   }
+}
+
+.dark-theme .container .main {
+  background-color: $dark-layout-main;
 }
 </style>

@@ -19,12 +19,7 @@
         content="换肤"
         placement="bottom"
       >
-        <el-switch
-          v-model="value"
-          active-color="#0a0a0a"
-          inactive-color="#409EFF"
-        >
-        </el-switch>
+        <el-switch v-model="value"> </el-switch>
       </el-tooltip>
 
       <div class="link" @click="lock">
@@ -67,9 +62,20 @@ export default {
     },
   },
   watch: {
-    value() {
-      this.toggleClass(document.body, "custom-theme");
+    value(val) {
+      if (val) {
+        localStorage.setItem("custom-theme", "dark-theme");
+        this.toggleClass(document.body, "dark-theme");
+      } else {
+        localStorage.setItem("custom-theme", "");
+        this.toggleClass(document.body, "");
+      }
     },
+  },
+  created() {
+    if (localStorage.getItem("custom-theme") === "dark-theme") {
+      this.value = true;
+    }
   },
   methods: {
     // 控制侧边栏导航
@@ -77,19 +83,10 @@ export default {
       this.$store.commit("setCollapse", collapse);
     },
     toggleClass(element, className) {
-      if (!element || !className) {
+      if (!element) {
         return;
       }
-      let classString = element.className;
-      const nameIndex = classString.indexOf(className);
-      if (nameIndex === -1) {
-        classString += "" + className;
-      } else {
-        classString =
-          classString.substr(0, nameIndex) +
-          classString.substr(nameIndex + className.length);
-      }
-      element.className = classString;
+      element.className = className;
     },
     // 下拉菜单事件处理
     handleCommand(command) {
@@ -112,11 +109,9 @@ export default {
         inputPlaceholder: "请输入锁屏密码",
         inputPattern: /^[A-Za-z0-9!@#$%^&*?]+$/,
         inputErrorMessage: "只能输入英文，数字，特殊字符的组合",
-      })
-        .then(({ value }) => {
-          this.$store.commit("updateLock", value);
-        })
-        .catch(() => {});
+      }).then(({ value }) => {
+        this.$store.commit("updateLock", value);
+      });
     },
   },
 };
@@ -132,10 +127,16 @@ export default {
   color: $header-link-color;
   background-color: $header-bg;
 }
+.dark-theme .header {
+  color: $dark-header-link-color;
+  background-color: $dark-header-bg;
+}
+
 .header > div {
   display: flex;
   align-items: center;
 }
+
 .link {
   height: 60px;
   display: flex;
@@ -148,8 +149,14 @@ export default {
 .link:hover {
   background: $header-link-hover;
 }
+.dark-theme .link:hover {
+  background: $dark-header-link-hover;
+}
 .dropdown {
   font-size: 14px;
   color: $header-link-color;
+}
+.dark-theme .dropdown {
+  color: $dark-header-link-color;
 }
 </style>
