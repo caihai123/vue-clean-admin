@@ -261,18 +261,18 @@ export default {
     background-color: $dark-tabs-container-bg;
   }
   .tabs-item {
-    background-color: #0d0903;
+    background-color: #232323;
     color: #6f6c66;
   }
   .tabs-item:hover {
-    background-color: #000;
+    background-color: #0e0e0e;
   }
   .router-link-exact-active {
-    background: #000;
+    background: #0e0e0e;
   }
   .contextmenu {
     color: #ccc;
-    background: #000;
+    background: #232323;
     li:hover {
       background: #111;
     }
