@@ -14,16 +14,15 @@ import "@/filters/index"; // 全局过滤器
 
 Vue.config.productionTip = false;
 
-const { Button, ...Element } = ElementUI;
-
-Vue.use(Element);
+Vue.use(ElementUI);
 Vue.use(Fragment.Plugin);
 Vue.use(ElTableEdit);
+
 // 重写el-button，给el-button添加水波纹
 Vue.component("el-button", {
   render: function(h) {
     return h(
-      Button,
+      ElementUI.Button,
       {
         props: this.$attrs,
         on: this.$listeners,
@@ -40,11 +39,11 @@ Vue.directive("waves", waves); // 全局注册
 
 // 设置element组件默认值
 Vue.prototype.$ELEMENT = { size: "medium", zIndex: 3000 };
-Element.Input.props.clearable = {
+ElementUI.Input.props.clearable = {
   type: Boolean,
   default: true,
 };
-Element.Select.props.clearable = {
+ElementUI.Select.props.clearable = {
   type: Boolean,
   default: true,
 };
