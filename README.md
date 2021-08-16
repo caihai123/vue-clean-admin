@@ -1,19 +1,15 @@
 # element-admin
-## 预览链接：https://caihai123.com/element-admin/
-## Project setup
-```
-npm install
-```
+> 一个简单干净的后台管理框架
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 预览链接
++ https://caihai123.com/element-admin/
 
-### Compiles and minifies for production
-```
-npm run build
-```
++ https://caihai123.gitee.io/element-admin/
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+> 参考框架：[vue-element-admin](https://gitee.com/panjiachen/vue-element-admin) 
+
+### 主要功能点
++ 基本布局
++ 动态路由（侧边栏菜单）
++ 路由缓存（tabs导航）
++ 主题切换
