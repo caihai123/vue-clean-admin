@@ -3,7 +3,6 @@
     <div style="margin-bottom: 20px">
       <el-input
         v-model="searchValue"
-        clearable
         placeholder="可输入 title path icon 查询"
         prefix-icon="el-icon-search"
         style="width:400px"
