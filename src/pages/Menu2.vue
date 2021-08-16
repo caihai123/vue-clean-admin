@@ -34,6 +34,24 @@
       <el-button type="warning" icon="el-icon-star-off" circle></el-button>
       <el-button type="danger" icon="el-icon-delete" circle></el-button>
     </el-row>
+    <el-row>
+      <el-radio label="1">备选项</el-radio>
+      <el-radio label="2" disabled>备选项</el-radio>
+    </el-row>
+    <el-row>
+      <el-select placeholder="请选择" value="1">
+        <el-option label="选项一" value="1"> </el-option>
+        <el-option label="选项二" value="2"> </el-option>
+        <el-option label="选项三" value="3"> </el-option>
+      </el-select>
+      <el-date-picker v-model="date" type="date" placeholder="选择日期">
+      </el-date-picker>
+    </el-row>
+
+    <el-row>
+      <el-pagination background layout="prev, pager, next" :total="1000">
+      </el-pagination>
+    </el-row>
   </div>
 </template>
 
@@ -43,7 +61,9 @@ export default {
   components: {},
   props: {},
   data() {
-    return {};
+    return {
+      date: "",
+    };
   },
   computed: {},
   watch: {},

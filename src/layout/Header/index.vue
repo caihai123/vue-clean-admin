@@ -53,7 +53,7 @@ export default {
   components: { Breadcrumb, Screenfull },
   data() {
     return {
-      value: false,
+      value: true,
     };
   },
   computed: {
@@ -64,11 +64,11 @@ export default {
   watch: {
     value(val) {
       if (val) {
-        localStorage.setItem("custom-theme", "dark-theme");
-        this.toggleClass(document.body, "dark-theme");
-      } else {
         localStorage.setItem("custom-theme", "");
         this.toggleClass(document.body, "");
+      } else {
+        localStorage.setItem("custom-theme", "dark-theme");
+        this.toggleClass(document.body, "dark-theme");
       }
     },
   },
