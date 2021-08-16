@@ -23,6 +23,7 @@
               item.toLowerCase().includes(searchValue.toLowerCase())
           )"
           :key="item"
+          v-waves
           class="icon-item"
           @click="handleClipboard(item, $event)"
         >
