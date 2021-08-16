@@ -14,21 +14,40 @@ import "@/filters/index"; // 全局过滤器
 
 Vue.config.productionTip = false;
 
-// 设置element组件默认值
-ElementUI.Input.props.clearable = {
-  type: Boolean,
-  default: true,
-};
-ElementUI.Select.props.clearable = {
-  type: Boolean,
-  default: true,
-};
+const { Button, ...Element } = ElementUI;
 
-Vue.use(ElementUI);
+Vue.use(Element);
 Vue.use(Fragment.Plugin);
 Vue.use(ElTableEdit);
+// 重写el-button，给el-button添加水波纹
+Vue.component("el-button", {
+  render: function(h) {
+    return h(
+      Button,
+      {
+        props: this.$attrs,
+        on: this.$listeners,
+        directives: [{ name: "waves" }],
+      },
+      this.$slots.default
+    );
+  },
+});
 
+// 水波纹指令
+import waves from "@/directive/waves/index.js";
+Vue.directive("waves", waves); // 全局注册
+
+// 设置element组件默认值
 Vue.prototype.$ELEMENT = { size: "medium", zIndex: 3000 };
+Element.Input.props.clearable = {
+  type: Boolean,
+  default: true,
+};
+Element.Select.props.clearable = {
+  type: Boolean,
+  default: true,
+};
 
 new Vue({
   router,
