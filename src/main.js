@@ -11,27 +11,14 @@ import "@/assets/style/index.scss"; //全局公共样式
 import Fragment from "vue-fragment"; // 可产生虚拟根节点
 import ElTableEdit from "el-table-edit";
 import "@/filters/index"; // 全局过滤器
+import MyElement from "@/components/my-element"; // ElementUI 组件覆盖
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 Vue.use(Fragment.Plugin);
 Vue.use(ElTableEdit);
-
-// 重写el-button，给el-button添加水波纹
-Vue.component("el-button", {
-  render: function(h) {
-    return h(
-      ElementUI.Button,
-      {
-        props: this.$attrs,
-        on: this.$listeners,
-        directives: [{ name: "waves" }],
-      },
-      this.$slots.default
-    );
-  },
-});
+Vue.use(MyElement);
 
 // 水波纹指令
 import waves from "@/directive/waves/index.js";

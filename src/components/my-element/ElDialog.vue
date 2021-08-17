@@ -1,5 +1,5 @@
 <template>
-  <el-dialog
+  <Dialog
     v-bind="$attrs"
     :class="className"
     :style="
@@ -16,13 +16,29 @@
     <template slot="footer">
       <slot name="footer" />
     </template>
-  </el-dialog>
+  </Dialog>
 </template>
 
 <script>
+import { Dialog } from "element-ui";
+
 let mousePosition = null;
+function getClickPosition(e) {
+  mousePosition = {
+    x: e.pageX,
+    y: e.pageY,
+  };
+  // 100ms 内发生过点击事件，则从点击位置动画展示
+  // 否则直接 zoom 展示
+  // 这样可以兼容非点击方式展开
+  setTimeout(() => {
+    mousePosition = null;
+  }, 100);
+}
 
 export default {
+  name: "ElDialog",
+  components: { Dialog },
   data() {
     return {
       mousePosition: null,
@@ -45,28 +61,10 @@ export default {
     },
   },
   created() {
-    document.documentElement.addEventListener(
-      "click",
-      this.getClickPosition,
-      true
-    );
+    document.documentElement.addEventListener("click", getClickPosition, true);
   },
   beforeDestroy() {
-    document.body.removeEventListener("click", this.getClickPosition, true);
-  },
-  methods: {
-    getClickPosition(e) {
-      mousePosition = {
-        x: e.pageX,
-        y: e.pageY,
-      };
-      // 100ms 内发生过点击事件，则从点击位置动画展示
-      // 否则直接 zoom 展示
-      // 这样可以兼容非点击方式展开
-      setTimeout(() => {
-        mousePosition = null;
-      }, 100);
-    },
+    document.body.removeEventListener("click", getClickPosition, true);
   },
 };
 </script>
