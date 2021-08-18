@@ -7,6 +7,22 @@
         placeholder="在此搜索图标，点击图标可复制"
         style="width: 300px"
       ></el-input>
+      <div class="item-box">
+        <div
+          v-for="item in iconfont.filter(
+            (item) =>
+              !searchValue ||
+              item.toLowerCase().includes(searchValue.toLowerCase())
+          )"
+          :key="item"
+          v-waves
+          class="icon-item"
+          @click="handleClipboard(item, $event)"
+        >
+          <i :class="item"></i>
+          <span>{{ item.slice(9) }}</span>
+        </div>
+      </div>
     </el-tab-pane>
     <el-tab-pane label="el-iocn" name="second">
       <el-input
@@ -37,7 +53,9 @@
 
 <script>
 import elIconList from "@/assets/js/el-icon";
+import iconfont from "@/assets/js/iconfont";
 import clipboard from "@/utils/clipboard";
+
 export default {
   name: "Icon",
   data() {
@@ -45,6 +63,7 @@ export default {
       searchValue: "",
       active: "second",
       elIcon: elIconList,
+      iconfont: iconfont,
     };
   },
   methods: {
