@@ -20,7 +20,7 @@
           @click="handleClipboard(item, $event)"
         >
           <i :class="item"></i>
-          <span>{{ item.slice(9) }}</span>
+          <span>{{ item.slice(0, -9) }}</span>
         </div>
       </div>
     </el-tab-pane>
