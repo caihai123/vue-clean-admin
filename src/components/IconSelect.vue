@@ -20,7 +20,7 @@
 
         <div class="icon-box">
           <el-option
-            v-for="item in iconList"
+            v-for="item in elIconList"
             :key="item"
             :value="item"
             class="icon-item"
@@ -29,13 +29,33 @@
           </el-option>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="iconfont"> </el-tab-pane>
+      <el-tab-pane label="iconfont">
+        <div class="search-box">
+          <el-input
+            suffix-icon="el-icon-search"
+            placeholder="在此搜索图标"
+            style="max-width: 300px"
+          ></el-input>
+        </div>
+
+        <div class="icon-box">
+          <el-option
+            v-for="item in IconfontList"
+            :key="item"
+            :value="item"
+            class="icon-item"
+          >
+            <i :class="item"></i>
+          </el-option>
+        </div>
+      </el-tab-pane>
     </el-tabs>
   </el-select>
 </template>
 
 <script>
-import iconList from "@/assets/js/el-icon";
+import elIconList from "@/assets/js/el-icon";
+import IconfontList from "@/assets/js/iconfont";
 
 export default {
   props: {
@@ -46,7 +66,8 @@ export default {
   },
   data() {
     return {
-      iconList: iconList,
+      elIconList: elIconList,
+      IconfontList: IconfontList,
     };
   },
   computed: {

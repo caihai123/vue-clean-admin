@@ -1,3 +1,5 @@
+@import url('//at.alicdn.com/t/font_2754464_qhtmtdmu7y.css');
+
 .el-input + .el-input {
   margin-left: 10px;
 }
@@ -9,9 +11,9 @@
   margin-left: 10px;
 }
 
-.el-dialog__header{
+.el-dialog__header {
   border-bottom: 1px solid #f0f0f0;
 }
-.el-dialog__footer{
+.el-dialog__footer {
   border-top: 1px solid #f0f0f0;
 }
