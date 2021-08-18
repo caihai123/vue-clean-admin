@@ -1,7 +1,6 @@
 import Button from "./ElButton";
-import Dialog from "./ElDialog";
 
-const components = [Button, Dialog];
+const components = [Button];
 
 const install = function(Vue) {
   components.forEach((component) => {
