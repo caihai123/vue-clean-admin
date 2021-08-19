@@ -74,7 +74,7 @@ export default {
   },
   created() {
     if (localStorage.getItem("custom-theme") === "dark-theme") {
-      this.value = true;
+      this.value = false;
     }
   },
   methods: {
