@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <el-form 
-      ref="form" 
-      :model="form" 
-      :rules="rules" 
+    <el-form
+      ref="form"
+      :model="form"
+      :rules="rules"
       class="form"
       @submit.native.prevent
     >
@@ -66,8 +66,8 @@ export default {
             this.form.username === "admin" &&
             this.form.password === "password"
           ) {
-            await this.$store.commit("setMenuList", []); // 清空侧边栏菜单
-            await this.$store.commit("updateLock", null); // 清除锁屏
+            this.$store.commit("setMenuList", []); // 清空侧边栏菜单
+            this.$store.commit("updateLock", null); // 清除锁屏
             this.$router.push("/");
           } else {
             this.$message.error("用户名或密码错误");
