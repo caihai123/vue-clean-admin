@@ -1,4 +1,14 @@
+/* iconfont单色字体图标 */
 @import url('//at.alicdn.com/t/font_2754464_qhtmtdmu7y.css');
+
+/* 多色图标基础css 对应由 build/index.html 引入的图标文件 */
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+/* */
 
 .el-input + .el-input {
   margin-left: 10px;

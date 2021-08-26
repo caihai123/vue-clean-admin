@@ -48,12 +48,41 @@
         </div>
       </div>
     </el-tab-pane>
+    <el-tab-pane label="symbol" name="symbol">
+      <el-input
+        v-model="searchValue"
+        suffix-icon="el-icon-search"
+        placeholder="在此搜索图标，点击图标可复制"
+        style="width: 300px"
+      ></el-input>
+      <div class="item-box">
+        <div
+          v-for="item in symbolIcon.filter(
+            (item) =>
+              !searchValue ||
+              item.toLowerCase().includes(searchValue.toLowerCase())
+          )"
+          :key="item"
+          v-waves
+          class="icon-item"
+          @click="handleClipboard(item, $event)"
+        >
+          <i>
+            <svg class="icon" aria-hidden="true">
+              <use :xlink:href="'#' + item"></use>
+            </svg>
+          </i>
+          <span>{{ item }}</span>
+        </div>
+      </div>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
 import elIconList from "@/assets/js/el-icon";
 import iconfont from "@/assets/js/iconfont";
+import symbolIcon from "@/assets/js/symbol-icon";
 import clipboard from "@/utils/clipboard";
 
 export default {
@@ -64,6 +93,7 @@ export default {
       active: "second",
       elIcon: elIconList,
       iconfont: iconfont,
+      symbolIcon: symbolIcon,
     };
   },
   methods: {
