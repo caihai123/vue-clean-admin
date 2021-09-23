@@ -8,7 +8,7 @@
         href="https://panjiachen.gitee.io/vue-element-admin-site/zh/"
         target="_blank"
       >
-        vue-element-admin
+        vue-clean-admin
       </el-link>
       的部分代码，特别是权限路由做了很大的改动。
     </p>

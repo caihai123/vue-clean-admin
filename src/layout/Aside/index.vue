@@ -3,7 +3,7 @@
     <div class="sider-logo">
       <router-link to="/">
         <img src="@/assets/logo.png" alt="logo" />
-        <h1 v-if="!isCollapse">element-admin</h1>
+        <h1 v-if="!isCollapse">vue-clean-admin</h1>
       </router-link>
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
