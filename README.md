@@ -2,9 +2,9 @@
 > 一个简单干净的后台管理框架
 
 ### 预览链接
-+ https://caihai123.com/element-admin/
++ https://caihai123.com/vue-clean-admin/
 
-+ https://caihai123.gitee.io/element-admin/
++ https://caihai123.gitee.io/vue-clean-admin/
 
 > 参考框架：[vue-element-admin](https://gitee.com/panjiachen/vue-element-admin) 
 

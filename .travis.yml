@@ -18,4 +18,4 @@ branches:
   - master
 env:
  global:
-   - GH_REF: github.com/caihai123/element-admin.git
+   - GH_REF: github.com/caihai123/vue-clean-admin.git
