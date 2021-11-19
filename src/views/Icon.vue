@@ -80,9 +80,9 @@
 </template>
 
 <script>
-import elIconList from "@/assets/js/el-icon";
-import iconfont from "@/assets/js/iconfont";
-import symbolIcon from "@/assets/js/symbol-icon";
+import elIconList from "@/utils/iconfont/el-icon";
+import iconfont from "@/utils/iconfont/iconfont";
+import symbolIcon from "@/utils/iconfont/symbol-icon";
 import clipboard from "@/utils/clipboard";
 
 export default {

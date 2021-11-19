@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import elIconList from "@/assets/js/el-icon";
-import IconfontList from "@/assets/js/iconfont";
+import elIconList from "@/utils/iconfont/el-icon";
+import IconfontList from "@/utils/iconfont/iconfont";
 
 export default {
   props: {
