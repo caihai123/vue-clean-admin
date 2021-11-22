@@ -1,13 +1,67 @@
 # vue-clean-admin
-> 一个简单干净的后台管理框架 
+
+> 一个简单干净的后台管理框架
 
 ### 预览链接
-+ https://caihai123.com/vue-clean-admin/
-+ https://caihai123.gitee.io/vue-clean-admin/
 
-> 参考框架：[vue-element-admin](https://gitee.com/panjiachen/vue-element-admin) 
+- https://caihai123.com/vue-clean-admin/
+- https://caihai123.gitee.io/vue-clean-admin/
+
+> 参考框架：[vue-element-admin](https://gitee.com/panjiachen/vue-element-admin)
+
+### 介绍
+
+思来想去也就做了一件有意义的事情，就是使用后端返回的路由表控制路由权限，后端返回的数据格式应该是这样
+
+```json
+[
+  {
+    "id": "1",
+    "type": "1",// 1 代表是菜单 2 代表是目录
+    "path": "/index",
+    "title": "首页",
+    "icon": "el-icon-s-home",
+    "affix": true,// 最好把首页设置为true
+    "index": 1
+  },
+  {
+    "id": "2",
+    "type": "2",
+    "title": "权限管理",
+    "icon": "el-icon-s-tools",
+    "index": 2,
+    "children": [
+      {
+        "parentId": "2",
+        "id": "2-1",
+        "type": "1",
+        "path": "/permis/menu",
+        "title": "菜单管理",
+        "index": 1
+      },
+      {
+        "parentId": "2",
+        "id": "2-2",
+        "type": "1",
+        "path": "/permis/role",
+        "title": "角色管理",
+        "index": 2
+      },
+      {
+        "parentId": "2",
+        "id": "2-3",
+        "type": "1",
+        "path": "/permis/account",
+        "title": "用户管理",
+        "index": 3
+      }
+    ]
+  }
+]
+```
 
 ### 目录结构
+
 ```bash
 ├── public                     # 静态资源
 │   │── favicon.ico            # favicon图标
@@ -57,14 +111,18 @@ npm install
 npm run dev
 ```
 
+> 项目中的所有代码都需要通过 [ESLint](https://eslint.bootcss.com/) 的检测，为了保持更好的开发体验，建议在 vscode 中安装 ESLint 和 Prettier 插件并添加以下配置：
+> `
+> "editor.codeActionsOnSave": {
 
->项目中的所有代码都需要通过 [ESLint](https://eslint.bootcss.com/) 的检测，为了保持更好的开发体验，建议在 vscode 中安装 ESLint 和 Prettier 插件并添加以下配置：
-`
-"editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+
 },
 `
 
 ### 开发注意事项
-+ 所有页面都应该是一级页面，否则会没有路由缓存
-+ 所有页面都必须同时在页面和路由配置中添加 `name` 属性，否则也不会有路由缓存
+
+- 后端返回的`path`必须和本地路由表完全对应，它是通过地址匹配
+- 所有页面都应该是一级页面，否则会没有路由缓存
+- 所有页面都必须同时在页面和路由配置中添加 `name` 属性，否则也不会有路由缓存
+- 最好在给任何用户都分配出“首页”的权限
