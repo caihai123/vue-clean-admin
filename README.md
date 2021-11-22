@@ -17,7 +17,7 @@
 [
   {
     "id": "1",
-    "type": "1",// 1 代表是菜单 2 代表是目录
+    "type": "1",// 1代表是菜单 2代表是目录
     "path": "/index",
     "title": "首页",
     "icon": "el-icon-s-home",
@@ -111,14 +111,7 @@ npm install
 npm run dev
 ```
 
-> 项目中的所有代码都需要通过 [ESLint](https://eslint.bootcss.com/) 的检测，为了保持更好的开发体验，建议在 vscode 中安装 ESLint 和 Prettier 插件并添加以下配置：
-> `
-> "editor.codeActionsOnSave": {
-
-    "source.fixAll.eslint": true
-
-},
-`
+> 项目中的所有代码都需要通过 [ESLint](https://eslint.bootcss.com/) 的检测，为了保持更好的开发体验，建议在 vscode 中安装 ESLint 和 Prettier 插件并添加以下配置：`"editor.codeActionsOnSave": {"source.fixAll.eslint": true}`
 
 ### 开发注意事项
 
