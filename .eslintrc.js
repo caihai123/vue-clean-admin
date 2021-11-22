@@ -87,6 +87,8 @@ module.exports = {
         ],
       },
     ],
+    eqeqeq: ["error", "always"], // 禁止使用==
+    "vue/padding-line-between-blocks": ["error", "always"],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
   },
