@@ -10,6 +10,7 @@
 > 参考框架：[vue-element-admin](https://gitee.com/panjiachen/vue-element-admin)
 
 ### 介绍
+> 本项目技术栈基于 [vue2](https://cn.vuejs.org/)、[vuex](https://vuex.vuejs.org/zh/)、[vue-router](https://router.vuejs.org/zh/) 、[vue-cli](https://cli.vuejs.org/zh/guide/) 、[axios](http://www.axios-js.com/) 和 [element-ui](https://element.eleme.cn/#/zh-CN);
 
 思来想去也就做了一件有意义的事情，就是使用后端返回的路由表控制路由权限，后端返回的数据格式应该是这样
 
