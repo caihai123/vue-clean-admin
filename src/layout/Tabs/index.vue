@@ -265,16 +265,16 @@ export default {
     color: $dark-tabs-font-color;
   }
   .tabs-item:hover {
-    background-color: #1e1e1e;
+    background-color: #293241;
   }
   .router-link-exact-active {
-    background: #1e1e1e;
+    background: #293241;
   }
   .contextmenu {
     color: #ccc;
-    background: #232323;
+    background: #404964;
     li:hover {
-      background: #111;
+      background: #293241;
     }
   }
 }

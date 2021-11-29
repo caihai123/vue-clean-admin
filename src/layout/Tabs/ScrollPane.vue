@@ -123,8 +123,8 @@ export default {
 // 黑色模式
 .dark-theme {
   .tabs-scroll .arrows {
-    border: 1px solid #676767;
-    background-color: #676767;
+    border: 1px solid #293241;
+    background-color: #293241;
     color: #fff;
   }
 }

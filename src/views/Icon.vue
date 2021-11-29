@@ -112,6 +112,9 @@ export default {
   border-radius: 4px;
   border-top: 1px solid #eee;
 }
+.dark-theme .item-box {
+  border-color: #545b67;
+}
 .icon-item {
   height: 120px;
   padding: 0 10px;
@@ -121,6 +124,9 @@ export default {
   margin-top: -1px;
   margin-right: -1px;
   cursor: pointer;
+}
+.dark-theme .icon-item {
+  border-color: #545b67;
 }
 .icon-item:hover {
   color: #409eff;

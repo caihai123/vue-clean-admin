@@ -62,17 +62,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .app-breadcrumb {
   line-height: 48px;
   padding-left: 8px;
   font-size: 14px;
-}
-.app-breadcrumb .el-breadcrumb__inner a {
-  font-weight: 400;
-}
-.app-breadcrumb .el-breadcrumb__inner a {
-  color: #68728c;
 }
 
 /* breadcrumb transition */
@@ -93,5 +87,14 @@ export default {
 
 .breadcrumb-leave-active {
   position: absolute;
+}
+
+.dark-theme .app-breadcrumb {
+  ::v-deep .el-breadcrumb__inner {
+    color: $dark-header-link-color;
+  }
+}
+.dark-theme .el-breadcrumb__item:last-child .el-breadcrumb__inner a {
+  color: $dark-header-link-color;
 }
 </style>
