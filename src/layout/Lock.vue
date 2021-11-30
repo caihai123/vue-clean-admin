@@ -82,6 +82,10 @@ export default {
   border-radius: 4px;
   background-color: #fff;
 }
+.dark-theme .form {
+  border-color: #545b67;
+  background-color: #304156;
+}
 .title {
   line-height: 60px;
   padding-left: 160px;
