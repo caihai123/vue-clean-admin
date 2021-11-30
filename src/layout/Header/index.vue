@@ -92,7 +92,7 @@ export default {
     handleCommand(command) {
       let handle = {
         b: () => {
-          window.open("https://github.com/caihai123/element-admin");
+          window.open("https://github.com/caihai123/vue-clean-admin");
         },
         // 登出
         c: () => {
