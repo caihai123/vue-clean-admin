@@ -73,12 +73,7 @@
           </div>
 
           <el-radio-group v-model="form.type" size="medium">
-            <el-radio-button
-              label="1"
-              :disabled="!!(form.children && form.children.length)"
-            >
-              菜单
-            </el-radio-button>
+            <el-radio-button label="1">菜单</el-radio-button>
             <el-radio-button label="2">目录</el-radio-button>
           </el-radio-group>
         </el-form-item>
@@ -156,7 +151,7 @@
 </template>
 
 <script>
-import { getMenuList } from "@/api/permis";
+import axios from "@/utils/axios";
 import { treeFilter } from "@/utils/index";
 import IconSelect from "@/components/IconSelect";
 import PathFormItem from "@/components/form/path-form.item";
@@ -170,7 +165,6 @@ const defaultForm = {
   index: "",
   affix: false,
   hidden: false,
-  children: false,
 };
 
 export default {
@@ -200,9 +194,14 @@ export default {
     },
   },
   created() {
-    getMenuList().then((value) => (this.tableData = value.data.data || []));
+    this.getTableData();
   },
   methods: {
+    getTableData() {
+      axios("get_menu_all").then(
+        (value) => (this.tableData = value.data || [])
+      );
+    },
     // 编辑
     editRow(row) {
       this.form = { ...defaultForm, ...row };
@@ -213,21 +212,30 @@ export default {
     submitForm() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          let params;
+          let params = {
+            parentId: this.form.parentId,
+            title: this.form.title,
+            icon: this.form.icon,
+            index: this.form.index,
+            type: this.form.type,
+          };
+
           if (this.form.type === "1") {
             // 菜单类型
-            params = this.form;
-          } else {
-            // 目前只有菜单和目录两种
-            params = {
-              parentId: this.form.parentId,
-              id: this.form.id,
-              title: this.form.title,
-              icon: this.form.icon,
-              index: this.form.index,
-            };
+            params.path = this.form.path;
+            params.affix = this.form.affix || false;
+            params.hidden = this.form.hidden || false;
           }
-          console.log(params);
+
+          if (this.form.id) {
+            console.log("这里是编辑！");
+          } else {
+            axios("add_menu", params).then(() => {
+              this.getTableData();
+              this.visible = false;
+              this.$message.success("新增成功！");
+            });
+          }
         }
       });
     },

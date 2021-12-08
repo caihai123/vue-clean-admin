@@ -35,12 +35,14 @@
 </template>
 
 <script>
+import axios from "@/utils/axios";
+
 export default {
   data() {
     return {
       form: {
         username: "admin",
-        password: "password",
+        password: "123456",
       },
       rules: {
         username: [
@@ -62,16 +64,11 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if (
-            this.form.username === "admin" &&
-            this.form.password === "password"
-          ) {
+          axios(`login`, this.form).then(() => {
             this.$store.commit("setMenuList", []); // 清空侧边栏菜单
             this.$store.commit("updateLock", null); // 清除锁屏
             this.$router.push("/");
-          } else {
-            this.$message.error("用户名或密码错误");
-          }
+          });
         } else {
           this.$message.error("请输入用户名或密码！");
         }

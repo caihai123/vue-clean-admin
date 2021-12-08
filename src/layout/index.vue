@@ -32,6 +32,8 @@ import Aside from "./Aside";
 import Header from "./Header";
 import Tabs from "./Tabs";
 import Lock from "./Lock";
+import axios from "@/utils/axios";
+
 export default {
   components: { Aside, Header, Tabs, Lock },
   computed: {
@@ -48,6 +50,9 @@ export default {
     isLock() {
       return this.$store.state.lock.isLock;
     },
+  },
+  created() {
+    axios("get_userInfo");
   },
   methods: {
     // 控制侧边栏导航

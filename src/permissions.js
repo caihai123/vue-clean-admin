@@ -1,15 +1,14 @@
 import Vue from "vue";
 import router from "@/router";
 import store from "@/store";
-import { getMenuList } from "@/api/permis";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css"; // progress bar style
-
+import axios from "@/utils/axios";
 // 获取后端路由表
 const setMenulist = async () => {
   try {
-    const { data } = await getMenuList();
-    await store.commit("setMenuList", data.data || []);
+    const { data } = await axios("get_menu_all");
+    await store.commit("setMenuList", data || []);
   } catch (error) {
     await store.commit("setMenuList", []);
   }
