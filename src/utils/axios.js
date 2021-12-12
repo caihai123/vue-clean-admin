@@ -13,7 +13,7 @@ const instance = (url, params = {}, options = {}) =>
         if (value.success) {
           resolve(value);
         } else {
-          Message(value.message);
+          Message.error(value.message);
           reject(value);
         }
       })
