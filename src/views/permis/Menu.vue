@@ -47,7 +47,14 @@
           >
             添加子菜单
           </el-button>
-          <el-button size="mini" type="danger">删除</el-button>
+          <el-button
+            v-if="!row.children || !row.children.length"
+            size="mini"
+            type="danger"
+            @click="delRow(row.id)"
+          >
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -228,7 +235,14 @@ export default {
           }
 
           if (this.form.id) {
-            console.log("这里是编辑！");
+            axios("update_menu", {
+              id: this.form.id,
+              ...params,
+            }).then(() => {
+              this.getTableData();
+              this.visible = false;
+              this.$message.success("修改成功！");
+            });
           } else {
             axios("add_menu", params).then(() => {
               this.getTableData();
@@ -240,6 +254,19 @@ export default {
       });
     },
 
+    // 删除菜单
+    delRow(id) {
+      this.$confirm("此操作将永久删除该菜单, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        axios("del_menu", { id }).then(() => {
+          this.$message.success("删除成功!");
+          this.getTableData();
+        });
+      });
+    },
     // 重置表单
     resetFields() {
       this.$refs.form.resetFields();
