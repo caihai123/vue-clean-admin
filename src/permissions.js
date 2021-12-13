@@ -7,7 +7,7 @@ import axios from "@/utils/axios";
 // 获取后端路由表
 const setMenulist = async () => {
   try {
-    const { data } = await axios("get_menu_all");
+    const { data } = await axios("get_menu");
     await store.commit("setMenuList", data || []);
   } catch (error) {
     await store.commit("setMenuList", []);

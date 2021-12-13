@@ -205,9 +205,7 @@ export default {
   },
   methods: {
     getTableData() {
-      axios("get_menu_all").then(
-        (value) => (this.tableData = value.data || [])
-      );
+      axios("get_menu").then((value) => (this.tableData = value.data || []));
     },
     // 编辑
     editRow(row) {

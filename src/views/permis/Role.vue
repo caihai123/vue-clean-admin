@@ -111,7 +111,7 @@ export default {
   },
   created() {
     // 获取菜单列表
-    axios("get_menu_all").then((value) => (this.menuList = value.data || []));
+    axios("get_menu").then((value) => (this.menuList = value.data || []));
     this.getRoleTable();
   },
   methods: {
