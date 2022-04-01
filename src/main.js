@@ -23,13 +23,12 @@ Vue.use(MyElement);
 
 // 设置element组件默认值
 Vue.prototype.$ELEMENT = { size: "medium", zIndex: 3000 };
-ElementUI.Input.props.clearable = {
-  type: Boolean,
-  default: true,
-};
-ElementUI.Select.props.clearable = {
-  type: Boolean,
-  default: true,
+ElementUI.Input.props.clearable = { type: Boolean, default: true };
+ElementUI.Select.props.clearable = { type: Boolean, default: true };
+ElementUI.Pagination.props.background = { type: Boolean, default: true };
+ElementUI.Pagination.props.layout = {
+  type: String,
+  default: "total,prev, pager, next",
 };
 
 new Vue({
