@@ -31,7 +31,7 @@ ElementUI.Select.props.clearable = { type: Boolean, default: true };
 ElementUI.Pagination.props.background = { type: Boolean, default: true };
 ElementUI.Pagination.props.layout = {
   type: String,
-  default: "total,prev, pager, next",
+  default: "total,prev,pager,next",
 };
 
 new Vue({
