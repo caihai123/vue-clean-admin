@@ -48,3 +48,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.iconfont {
+  font-size: 24px;
+}
+</style>
