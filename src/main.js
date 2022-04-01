@@ -13,6 +13,7 @@ import ElTableEdit from "el-table-edit";
 import "@/filters/index"; // 全局过滤器
 import "@/directive/index"; // 注册全局指令
 import MyElement from "@/components/my-element"; // ElementUI 组件覆盖
+import ImageViewer from "@/components/ImageViewer/index"; // 图片预览组件
 
 Vue.config.productionTip = false;
 
@@ -23,6 +24,8 @@ Vue.use(MyElement);
 
 // 设置element组件默认值
 Vue.prototype.$ELEMENT = { size: "medium", zIndex: 3000 };
+Vue.prototype.$imageViewer = ImageViewer;
+
 ElementUI.Input.props.clearable = { type: Boolean, default: true };
 ElementUI.Select.props.clearable = { type: Boolean, default: true };
 ElementUI.Pagination.props.background = { type: Boolean, default: true };
