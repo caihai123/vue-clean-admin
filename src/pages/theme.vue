@@ -57,7 +57,7 @@
 
 <script>
 export default {
-  name: "Menu2",
+  name: "Theme",
   components: {},
   props: {},
   data() {

@@ -3,39 +3,35 @@ export default [
   {
     path: "/form",
     name: "Form",
-    component: () => import(/* webpackChunkName: "form" */ "@/pages/Form.vue"),
+    component: () => import(/* webpackChunkName: "form" */ "@/pages/form.vue"),
     meta: {},
   },
   {
-    path: "/menu1",
-    name: "Menu1",
-    component: () => import(/* webpackChunkName: "menu" */ "@/pages/Menu1.vue"),
+    path: "/table",
+    name: "Table",
+    component: () =>
+      import(/* webpackChunkName: "table" */ "@/pages/table.vue"),
     meta: {},
   },
   {
-    path: "/menu2",
-    name: "Menu2",
-    component: () => import(/* webpackChunkName: "menu" */ "@/pages/Menu2.vue"),
-    meta: {},
-  },
-  {
-    path: "/menu3",
-    name: "Menu3",
-    component: () => import(/* webpackChunkName: "menu" */ "@/pages/Menu3.vue"),
+    path: "/theme",
+    name: "Theme",
+    component: () =>
+      import(/* webpackChunkName: "theme" */ "@/pages/theme.vue"),
     meta: {},
   },
   {
     path: "/nested",
     name: "Nested",
     component: () =>
-      import(/* webpackChunkName: "nested" */ "@/pages/Nested/index.vue"),
+      import(/* webpackChunkName: "nested" */ "@/pages/nested/index.vue"),
     meta: {},
   },
   {
     path: "/nested/details",
     name: "NesteDetails",
     component: () =>
-      import(/* webpackChunkName: "nested" */ "@/pages/Nested/details.vue"),
+      import(/* webpackChunkName: "nested" */ "@/pages/nested/details.vue"),
     meta: {},
   },
 ];
