@@ -16,6 +16,7 @@
     "nprogress": "^0.2.0",
     "screenfull": "^5.0.2",
     "throttle-debounce": "^3.0.0",
+    "v-click-outside": "^3.1.2",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1",
     "vue-router": "^3.2.0",
