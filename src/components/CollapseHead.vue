@@ -25,10 +25,10 @@
 export default {
   props: {
     // 背景颜色
-    slotBgColor: {
-      type: String,
-      default: "#fff",
-    },
+    // slotBgColor: {
+    //   type: String,
+    //   default: "#fff",
+    // },
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
         height: this.visible ? "auto" : "58px",
         "padding-right": this.visible ? "0" : "232px",
         "box-shadow": this.visible ? "0 5px 5px 0 rgb(0 0 0 / 10%)" : "none",
-        "background-color": this.slotBgColor,
+        // "background-color": this.slotBgColor,
       };
     },
   },
@@ -148,7 +148,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .dropdown {
   position: relative;
   height: 58px;
@@ -163,7 +163,12 @@ export default {
   padding: 0 20px;
   box-sizing: border-box;
   /* transition: height 0.5s; */
+  background-color: $layout-main;
   z-index: 999;
+}
+
+.dark-theme .dropdown .slot-box {
+  background-color: $dark-layout-main;
 }
 
 .dropdown .dropdown-slot:after {
