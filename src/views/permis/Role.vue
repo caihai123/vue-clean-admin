@@ -54,7 +54,13 @@
       :title="form.id ? '编辑' : '新增'"
       @closed="resetFields"
     >
-      <el-form ref="form" :model="form" label-width="100px" label-suffix="：">
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="100px"
+        label-suffix=":"
+        @submit.native.prevent
+      >
         <el-form-item
           label="角色名称"
           prop="roleName"

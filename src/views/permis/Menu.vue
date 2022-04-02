@@ -57,7 +57,13 @@
       :visible.sync="visible"
       @closed="resetFields"
     >
-      <el-form ref="form" :model="form" label-width="80px" label-suffix="：">
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="80px"
+        label-suffix=":"
+        @submit.native.prevent
+      >
         <el-form-item>
           <div slot="label">
             <el-tooltip

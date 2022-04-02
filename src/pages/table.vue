@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <CollapseHead @onSubmit="searchHead" @onReset="resetHead">
-      <el-form ref="headForm" :model="head" inline>
+      <el-form ref="headForm" :model="head" inline @submit.native.prevent>
         <el-form-item label="姓名" prop="name">
           <el-input v-model="head.name" placeholder="请输入姓名" />
         </el-form-item>

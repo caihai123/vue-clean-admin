@@ -5,7 +5,7 @@
       所以有了下面这种方式，我觉得应该会很好用。代码在 “@/components/form/” 下
     </p>
 
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="form" label-width="80px" @submit.native.prevent>
       <phone-form-item v-model="form.phone" prop="phone" required />
 
       <identity-form-item v-model="form.identity" prop="identity" />
