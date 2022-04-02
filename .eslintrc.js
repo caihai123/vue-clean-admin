@@ -87,9 +87,28 @@ module.exports = {
         ],
       },
     ],
-    eqeqeq: ["error", "always"], // 禁止使用==
+    eqeqeq: ["error", "always"], // 需要使用===和!==
+    "vue/eqeqeq": ["error"], // 需要使用===和!== (template中)
     "vue/padding-line-between-blocks": ["error", "always"],
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    // 禁止存在未使用的属性
+    "vue/no-unused-properties": [
+      "error",
+      {
+        groups: ["props", "data", "computed", "methods"],
+        deepData: true,
+      },
+    ],
+    // 禁止使用未定义的属性
+    "vue/no-undef-properties": [
+      "error",
+      {
+        ignores: ["/^\\$/", "/^\\_/", "/^\\m_/"],
+      },
+    ],
+    "vue/no-v-text": ["error"], // 禁止使用v-text
+    "vue/multi-word-component-names": [0], // 关闭组件名称多词
+    "vue/no-empty-component-block": ["error"], // 禁止存在空组件块
+    "no-console": process.env.NODE_ENV === "production" ? "warn" : "warn",
+    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "warn",
   },
 };

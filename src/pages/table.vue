@@ -8,15 +8,6 @@
         <PhoneFormItem v-model="head.phone" prop="phone" />
         <IdentityFormItem v-model="head.identity" prop="identity" />
         <EmailFormItem v-model="head.email" prop="email" />
-        <el-form-item label="查询条件" prop="value1">
-          <el-input v-model="head.value1" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="查询条件" prop="value2">
-          <el-input v-model="head.value2" placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="查询条件" prop="value5">
-          <el-input v-model="head.value5" placeholder="请输入" />
-        </el-form-item>
         <el-form-item label="截至日期">
           <el-date-picker
             v-model="head.date"
@@ -28,7 +19,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="查询条件" prop="value3">
-          <el-input v-model="head.value3" placeholder="请输入" />
+          <el-input v-model="head.phone" placeholder="请输入" />
         </el-form-item>
       </el-form>
     </CollapseHead>

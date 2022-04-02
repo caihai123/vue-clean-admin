@@ -8,7 +8,7 @@
     >
       新增
     </el-button>
-    <template v-slot:column-actions="scope">
+    <template #column-actions="scope">
       <el-button
         type="danger"
         size="small"
@@ -125,7 +125,6 @@ export default {
   mounted() {},
   methods: {
     // 新增用户
-    addUserItem() {},
     delItem(row, index) {
       console.log(row);
       console.log(index);
@@ -134,4 +133,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<!-- <style scoped></style> -->

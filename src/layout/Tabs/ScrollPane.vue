@@ -31,7 +31,8 @@ export default {
       let target = this.domBox.scrollLeft + 200;
       this.uniformScroll(target);
     },
-    //使当前tab居中
+    //使当前tab居中 父组件调用
+    // eslint-disable-next-line vue/no-unused-properties
     moveCenter(tag) {
       this.uniformScroll(
         tag.$el.offsetLeft +

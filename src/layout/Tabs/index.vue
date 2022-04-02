@@ -1,14 +1,7 @@
 <template>
   <div class="container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper">
-      <draggable
-        v-model="tabsItem"
-        v-bind="options"
-        group="people"
-        tag="span"
-        @start="drag = true"
-        @end="drag = false"
-      >
+      <draggable v-model="tabsItem" v-bind="options" group="people" tag="span">
         <transition-group tag="span" name="flip-list">
           <router-link
             v-for="item in tabsItem"
@@ -34,6 +27,7 @@
       class="contextmenu"
     >
       <li @click="refresh(contextmenu.item)">刷新</li>
+      <!--eslint-disable-next-line vue/no-undef-properties-->
       <li v-if="!contextmenu.item.affix" @click="delTabs(contextmenu.item)">
         关闭
       </li>

@@ -39,9 +39,6 @@ export default {
     isCollapse() {
       return this.$store.state.layout.isCollapse;
     },
-    key() {
-      return this.$route.path;
-    },
     include() {
       return this.$store.getters.include;
     },

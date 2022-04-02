@@ -126,7 +126,6 @@ export default {
     getRoleList().then((value) => (this.tableData = value.data.data || []));
   },
   methods: {
-    addRow() {},
     // 提交表单
     submitForm() {
       this.$refs.form.validate((valid) => {
