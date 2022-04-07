@@ -16,9 +16,15 @@
         </el-header>
 
         <el-main class="main">
-          <keep-alive :include="include">
-            <router-view />
-          </keep-alive>
+          <WaterMark
+            :height="36"
+            :width="115"
+            image="https://gw.alipayobjects.com/zos/bmw-prod/59a18171-ae17-4fc5-93a0-2645f64a3aca.svg"
+          >
+            <keep-alive :include="include">
+              <router-view />
+            </keep-alive>
+          </WaterMark>
         </el-main>
 
         <el-backtop target=".main"></el-backtop>
@@ -32,8 +38,10 @@ import Aside from "./Aside";
 import Header from "./Header";
 import Tabs from "./Tabs";
 import Lock from "./Lock";
+import WaterMark from "@/components/WaterMark";
+
 export default {
-  components: { Aside, Header, Tabs, Lock },
+  components: { Aside, Header, Tabs, Lock, WaterMark },
   computed: {
     //控制侧边栏展开收起状态
     isCollapse() {
