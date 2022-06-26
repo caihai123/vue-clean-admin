@@ -14,6 +14,7 @@ import "@/filters/index"; // 全局过滤器
 import "@/directive/index"; // 注册全局指令
 import MyElement from "@/components/my-element"; // ElementUI 组件覆盖
 import ImageViewer from "@/components/ImageViewer/index"; // 图片预览组件
+import "./console.js";
 
 Vue.config.productionTip = false;
 
