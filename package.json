@@ -1,11 +1,11 @@
 {
   "name": "vue-clean-admin",
   "version": "0.1.0",
-  "description": "一个简单干净的后台管理框架",
-  "author": "caihai123",
+  "description":"一个简单干净的后台管理框架",
+  "author":"caihai123",
   "private": true,
   "license": "MIT",
-  "homepage": "https://gitee.com/caihai123/vue-clean-admin",
+  "homepage":"https://gitee.com/caihai123/vue-clean-admin",
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
