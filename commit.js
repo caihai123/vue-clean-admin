@@ -10,14 +10,10 @@ const localBranchName = child_process
   .toString()
   .trim();
 
-// const branchName = child_process
-//   .execSync(`git rev-parse --abbrev-ref ${localBranchName}@{upstream}`)
-//   .toString()
-//   .trim();
-
-const branchName = "";
-
-// 打包时间
+const branchName = child_process
+  .execSync(`git rev-parse --abbrev-ref ${localBranchName}@{upstream}`)
+  .toString()
+  .trim();
 
 module.exports = {
   commitHash,
