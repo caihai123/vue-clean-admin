@@ -1,7 +1,7 @@
 import Vue from "vue";
 import ElementUI from "element-ui";
 
-const { commitHash = "", branchName = "", buildDate = "" } = process.env;
+const { commitHash = "", buildDate = "" } = process.env;
 
 function consoleFn(label, val) {
   let style1 =
@@ -16,5 +16,4 @@ function consoleFn(label, val) {
 consoleFn("Vue", `v${Vue.version}`);
 consoleFn("ElementUI", `v${ElementUI.version}`);
 consoleFn("CommitHash", commitHash);
-consoleFn("BranchName", branchName);
 consoleFn("BuildDate", buildDate);

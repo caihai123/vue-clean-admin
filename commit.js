@@ -5,18 +5,6 @@ const commitHash = child_process
   .toString()
   .trim();
 
-const localBranchName = child_process
-  .execSync("git rev-parse --abbrev-ref HEAD")
-  .toString()
-  .trim();
-
-const branchName = child_process
-  .execSync(`git rev-parse --abbrev-ref ${localBranchName}@{upstream}`)
-  .toString()
-  .trim();
-
 module.exports = {
   commitHash,
-  localBranchName,
-  branchName,
 };

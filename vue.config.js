@@ -19,7 +19,6 @@ module.exports = {
   chainWebpack: (config) => {
     config.plugin("define").tap((args) => {
       args[0]["process.env"].commitHash = JSON.stringify(commit.commitHash);
-      args[0]["process.env"].branchName = JSON.stringify(commit.branchName);
       args[0]["process.env"].buildDate = JSON.stringify(buildDate);
       return args;
     });
