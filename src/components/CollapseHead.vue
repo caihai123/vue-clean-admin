@@ -29,6 +29,14 @@ export default {
     //   type: String,
     //   default: "#fff",
     // },
+    searchText: {
+      type: String,
+      default: "查 询",
+    },
+    resetText: {
+      type: String,
+      default: "重 置",
+    },
   },
   data() {
     return {
@@ -105,7 +113,7 @@ export default {
                       click: this.submit,
                     },
                   },
-                  "查 询"
+                  this.searchText
                 ),
                 h(
                   "el-button",
@@ -114,7 +122,7 @@ export default {
                       click: this.reset,
                     },
                   },
-                  "重 置"
+                  this.resetText
                 ),
                 h(
                   "el-button",
