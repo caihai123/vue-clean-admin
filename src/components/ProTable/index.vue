@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <CollapseHead
-      v-if="headFormItems.length && search"
+      v-if="showSearchForm"
       :search-text="search.searchText || '查 询'"
       :reset-text="search.resetText || '重 置'"
       @onSubmit="searchHeadForm"
@@ -51,16 +51,16 @@
     </CollapseHead>
 
     <div>
-      <div v-if="toolBar" v-show="!selectRowsLength" class="tool-bar">
+      <div v-if="showTool" v-show="!selectRowsLength" class="tool-bar">
         <slot
           name="tool-bar"
-          :backupFormData="backupFormData"
-          :headParams="headParams"
+          :oldParams="backupFormData"
+          :curParams="headParams"
+          :pagination="privatePagination"
         >
-          <Render
-            v-if="typeof toolBar === 'function'"
-            :render="toolBar"
-            :data="[backupFormData, headParams]"
+          <ButtonGroud
+            :but-list="toolButList"
+            :size="(toolBar && toolBar.size) || 'small'"
           />
         </slot>
       </div>
@@ -70,22 +70,27 @@
         v-show="selectRowsLength"
         class="el-alert el-alert--success is-light batch-bar"
       >
-        <div>
-          <span> 已选{{ selectRowsLength }}项 </span>
-          <el-button
-            type="text"
-            style="margin-left:10px"
-            @click="toggleSelection"
-          >
-            取消选择
-          </el-button>
-        </div>
+        <slot
+          name="batch-bar"
+          :selectRows="selectRows"
+          :curParams="headParams"
+          :oldParams="backupFormData"
+          :pagination="privatePagination"
+        >
+          <div>
+            <span> 已选{{ selectRowsLength }}项 </span>
+            <el-button
+              type="text"
+              style="margin-left:10px"
+              @click="toggleSelection"
+            >
+              取消选择
+            </el-button>
+          </div>
 
-        <slot name="tatch-but" :selectRows="selectRows">
-          <Render
-            v-if="batchBar.tatchBut"
-            :render="batchBar.tatchBut"
-            :data="[selectRows]"
+          <ButtonGroud
+            :but-list="batchBar.butList"
+            :size="(batchBar && batchBar.size) || 'small'"
           />
         </slot>
       </div>
@@ -117,6 +122,9 @@
           :key="item.key"
           :prop="item.key"
           :label="item.title"
+          :width="item.width"
+          :min-width="item.minWidth"
+          :fixed="item.fixed"
         >
           <template slot-scope="{ row, $index }">
             <slot :name="item.key" :row="row" :$index="$index">
@@ -145,7 +153,7 @@
         </el-table-column>
 
         <el-table-column
-          v-if="actions"
+          v-if="showActions"
           :label="(actions && actions.labelText) || '操作'"
           :width="actions && actions.width"
           :fixed="(actions && actions.fixed) || 'right'"
@@ -153,10 +161,9 @@
         >
           <template slot-scope="{ row, $index }">
             <slot name="actions" :row="row" :$index="$index">
-              <Render
-                v-if="actions.render"
-                :render="actions.render"
-                :data="[row, $index]"
+              <ButtonGroud
+                :but-list="actionsButList"
+                :size="(actions && actions.size) || 'mini'"
               />
             </slot>
           </template>
@@ -190,12 +197,14 @@
 import CollapseHead from "@/components/CollapseHead";
 import DictSelect from "@/components/DictSelect";
 import Render from "./components/Render"; // 使用渲染函数能力
+import ButtonGroud from "./components/ButtonGroud";
 
 export default {
   components: {
     CollapseHead,
     DictSelect,
     Render,
+    ButtonGroud,
   },
   filters: {
     optionParse(value, options) {
@@ -204,64 +213,10 @@ export default {
     },
   },
   props: {
+    // 表格行的key 某些情况下需要，参考 el-table
     rowKey: {
       type: String,
       default: "",
-    },
-    /**
-     * 获取表格数据的函数
-     * return 有分页时：{ tableData, pageCount, total}; 无分页时：{ tableData } or [...]
-     */
-    request: {
-      type: Function,
-      required: true,
-    },
-
-    /**
-     * 操作栏渲染
-     * 可使用渲染函数 第二个参数为当前缓存的搜索条件 第三个参数为当前的搜索条件（可能没通过表单验证）
-     * 为 true 时需要使用插槽添加按钮 参数和渲染函数一致
-     */
-    toolBar: {
-      type: [Function, Boolean],
-      default: null,
-    },
-
-    // 列配置
-    columns: {
-      type: Array,
-      required: true,
-    },
-
-    /**
-     * 分页配置 可设置null
-     * pageSize 初始分页大小 默认10
-     * background 参考 el-pagination 默认：true
-     * layout 参考 el-pagination
-     * pageSizes 参考 el-pagination
-     * textAlign 默认 right
-     */
-    pagination: {
-      type: [Object, Boolean],
-      default: true,
-    },
-
-    // 是否需要手动触发首次请求, 配置为 true 时不可隐藏搜索表单，false 时自动触发
-    manualRequest: {
-      type: Boolean,
-      default: false,
-    },
-
-    /**
-     * 批量操作配置，默认 false 不显示
-     * tatchBut: 按钮渲染函数  batchBar为 true 时可使用 batch-but 插槽
-     * reserveSelection: 在数据更新之后保留之前选中的数据，参考：el-table 默认 false
-     * select-on-indeterminate 默认：true 参考：el-table-column
-     * selectable 多选禁用 参考：el-table-column
-     */
-    batchBar: {
-      type: [Object, Boolean],
-      default: null,
     },
 
     /**
@@ -276,16 +231,75 @@ export default {
     },
 
     /**
+     * 获取表格数据的函数
+     * return 有分页时：{ tableData, pageCount, total}; 无分页时：{ tableData } or [...]
+     */
+    request: {
+      type: Function,
+      required: true,
+    },
+
+    // 列配置
+    columns: {
+      type: Array,
+      required: true,
+    },
+
+    // 是否需要手动触发首次请求, 配置为 true 时不可隐藏搜索表单，false 时自动触发
+    manualRequest: {
+      type: Boolean,
+      default: false,
+    },
+
+    /**
+     * 工具栏渲染
+     * butList 按钮列表 第二个参数为当前缓存的搜索条件 第三个参数为当前的搜索条件（可能没通过表单验证）
+     * 为 true 时需要使用插槽添加按钮
+     * size 按钮大小 默认 small
+     */
+    toolBar: {
+      type: [Object, Boolean],
+      default: null,
+    },
+
+    /**
+     * 批量操作配置，为 null或者false 时不开启
+     * butList: 按钮列表
+     * reserveSelection: 在数据更新之后保留之前选中的数据，参考：el-table 默认 false
+     * select-on-indeterminate 默认：true 参考：el-table-column
+     * selectable 多选禁用 参考：el-table-column
+     * size 按钮大小
+     */
+    batchBar: {
+      type: [Object, Boolean],
+      default: null,
+    },
+
+    /**
      * table 操作栏配置
      * labelText 操作栏title 默认：操作
      * fixed 默认 right
      * width
      * minWidth
-     * render 渲染函数
+     * butList 按钮列表
+     * size 按钮大小 默认 mini
      */
     actions: {
       type: [Object, Boolean],
       default: null,
+    },
+
+    /**
+     * 分页配置 可设置null
+     * pageSize 初始分页大小 默认10
+     * background 参考 el-pagination 默认：true
+     * layout 参考 el-pagination
+     * pageSizes 参考 el-pagination
+     * textAlign 默认 right
+     */
+    pagination: {
+      type: [Object, Boolean],
+      default: true,
     },
   },
 
@@ -306,6 +320,7 @@ export default {
       },
     };
   },
+
   computed: {
     // 过滤出搜索表单项
     headFormItems() {
@@ -315,6 +330,41 @@ export default {
     // 当前多选选中的数组长度
     selectRowsLength() {
       return this.selectRows.length;
+    },
+
+    // 是否显示搜索栏
+    showSearchForm() {
+      return this.headFormItems.length && this.search;
+    },
+
+    // 工具栏按钮
+    toolButList() {
+      const { butList = [] } = this.toolBar || {};
+      return butList;
+    },
+
+    // 是否显示工具栏
+    showTool() {
+      if (typeof this.toolBar === "boolean") {
+        return this.toolBar;
+      } else {
+        return !!this.toolButList.length;
+      }
+    },
+
+    // 操作栏按钮
+    actionsButList() {
+      const { butList = [] } = this.actions || {};
+      return butList;
+    },
+
+    // 是否显示表格操作栏
+    showActions() {
+      if (typeof this.actions === "boolean") {
+        return this.actions;
+      } else {
+        return !!this.actionsButList.length;
+      }
     },
   },
   watch: {
@@ -335,19 +385,21 @@ export default {
   methods: {
     // 点击 head 表单查询
     searchHeadForm() {
-      this.$refs["headForm"].validate((valid) => {
-        if (valid) {
-          this.backupFormData = JSON.parse(JSON.stringify(this.headParams));
-          this.loading = true;
-          this.getTableData(1).finally(() => {
-            this.loading = false;
-          });
-        }
-      });
+      if (this.showSearchForm) {
+        this.$refs["headForm"].validate((valid) => {
+          if (valid) {
+            this.backupFormData = JSON.parse(JSON.stringify(this.headParams));
+            this.getTableData(1, true);
+          }
+        });
+      } else {
+        this.getTableData(1, true);
+      }
     },
 
     // 获取表格（list）数据
-    async getTableData(page) {
+    async getTableData(page, loading = false) {
+      this.loading = loading;
       const params = { ...this.backupFormData };
 
       if (this.pagination) {
@@ -370,6 +422,8 @@ export default {
           }
         })();
       }
+
+      this.loading = false;
     },
 
     // 点击 head 表单重置
