@@ -163,7 +163,13 @@
         </el-table-column>
       </el-table>
 
-      <div v-if="pagination" style="text-align: right;margin-top:20px;">
+      <div
+        v-if="pagination"
+        :style="{
+          textAlign: pagination.textAlign || 'right',
+          marginTop: '20px',
+        }"
+      >
         <el-pagination
           :current-page="privatePagination.pageCount"
           :page-size.sync="privatePagination.pageSize"
@@ -233,6 +239,7 @@ export default {
      * background 参考 el-pagination 默认：true
      * layout 参考 el-pagination
      * pageSizes 参考 el-pagination
+     * textAlign 默认 right
      */
     pagination: {
       type: [Object, Boolean],
