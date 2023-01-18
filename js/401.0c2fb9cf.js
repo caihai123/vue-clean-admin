@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["401"],{"8a54":function(e,t,n){"use strict";n.r(t);var r=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},a=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",[n("h1",[e._v("401")]),n("p",[e._v("你无权进入此页面")])])}],c={name:"Err401",components:{},props:{},data(){return{}},computed:{},watch:{},created(){},mounted(){},methods:{}},o=c,u=n("2877"),s=Object(u["a"])(o,r,a,!1,null,null,null);t["default"]=s.exports}}]);
+//# sourceMappingURL=401.0c2fb9cf.js.map

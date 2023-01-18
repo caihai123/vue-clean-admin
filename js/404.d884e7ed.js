@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["404"],{"8cdb":function(e,t,n){"use strict";n.r(t);var r=function(){var e=this,t=e.$createElement;e._self._c;return e._m(0)},c=[function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("div",[n("h1",[e._v("404")]),n("p",[e._v("你是迷路了吗")])])}],a={name:"Err404",components:{},props:{},data(){return{}},computed:{},watch:{},created(){},mounted(){},methods:{}},o=a,u=n("2877"),s=Object(u["a"])(o,r,c,!1,null,null,null);t["default"]=s.exports}}]);
+//# sourceMappingURL=404.d884e7ed.js.map
