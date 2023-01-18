@@ -11,7 +11,7 @@
       :disabled="item.disabled || disabled"
       :loading="item.loading"
       :icon="item.icon"
-      @click="item.onClick || undefined"
+      @click="item.onClick(...params) || undefined"
     >
       {{ item.text }}
     </el-button>
@@ -21,6 +21,10 @@
 <script>
 export default {
   props: {
+    params: {
+      type: Array,
+      default: () => [],
+    },
     // 是否以按钮组的形式展现
     group: {
       type: Boolean,

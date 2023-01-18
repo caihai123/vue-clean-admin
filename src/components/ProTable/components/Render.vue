@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    data: {
+    params: {
       type: Array,
       default: () => [],
     },
@@ -12,7 +12,7 @@ export default {
   },
 
   render(h) {
-    return this.render(h, ...this.data);
+    return this.render(h, ...this.params);
   },
 };
 </script>

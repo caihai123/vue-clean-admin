@@ -59,9 +59,15 @@
           :pagination="privatePagination"
         >
           <ButtonGroud
+            v-if="toolButList && toolButList.length"
             :but-list="toolButList"
             :size="(toolBar && toolBar.size) || 'small'"
+            :params="[headParams, backupFormData, privatePagination]"
           />
+
+          <div v-else class="empty-dashed">
+            您还没有设置操作按钮，请添加 butList 属性或者使用 slot='tool-bar'
+          </div>
         </slot>
       </div>
 
@@ -89,9 +95,20 @@
           </div>
 
           <ButtonGroud
+            v-if="batchBar.butList && batchBar.butList.length"
             :but-list="batchBar.butList"
             :size="(batchBar && batchBar.size) || 'small'"
+            :params="[
+              selectRows,
+              headParams,
+              backupFormData,
+              privatePagination,
+            ]"
           />
+
+          <div v-else class="empty-dashed">
+            您还没有设置操作按钮，请添加 butList 属性或者使用 slot='batch-bar'
+          </div>
         </slot>
       </div>
     </div>
@@ -130,7 +147,7 @@
             <slot :name="item.key" :row="row" :$index="$index">
               <Render
                 v-if="item.render"
-                :data="[row, $index]"
+                :params="[row, $index]"
                 :render="item.render"
               />
 
@@ -162,9 +179,15 @@
           <template slot-scope="{ row, $index }">
             <slot name="actions" :row="row" :$index="$index">
               <ButtonGroud
+                v-if="actionsButList && actionsButList.length"
                 :but-list="actionsButList"
                 :size="(actions && actions.size) || 'mini'"
+                :params="[row, $index]"
               />
+
+              <div v-else class="empty-dashed">
+                您还没有设置操作按钮，请添加 butList 属性或者使用 slot='actions'
+              </div>
             </slot>
           </template>
         </el-table-column>
@@ -458,5 +481,12 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.empty-dashed {
+  border: 1px dashed #d9d9d9;
+  padding: 4px 15px;
+  border-radius: 6px;
+  color: #d9d9d9;
 }
 </style>
